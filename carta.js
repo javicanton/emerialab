@@ -6,8 +6,9 @@
   const front = document.getElementById("cartaFront");
   const under = document.getElementById("cartaUnder");
   const leaf = document.getElementById("cartaLeaf");
+  const left = document.getElementById("cartaLeft");
   const live = document.getElementById("cartaLive");
-  if (!scene || !front || !under || !leaf || !data) return;
+  if (!scene || !front || !under || !leaf || !left || !data) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -150,21 +151,46 @@
     return `
       <p class="carta-lead">${escapeHtml(PAGES[0].lead)}</p>
       <p class="carta-prose">En esta casa el conocimiento entra por la cocina y sale en un formato que se puede servir: una pieza, un relato o la comunicación de un proyecto.</p>
-      <h3 class="carta-course">De la casa</h3>
-      <ul class="carta-specials">
-        <li><strong>Rigor.</strong> El conocimiento se contrasta antes de contarse.</li>
-        <li><strong>Oficio.</strong> Guion, imagen, sonido y diseño, en la misma cocina.</li>
-        <li><strong>Público.</strong> Cada pieza se sirve a quien tiene que recibirla.</li>
-      </ul>
-      <p class="carta-sign">Universidad Internacional de La Rioja, UNIR TV.</p>
       <button type="button" class="carta-dish carta-open" data-choice="abrir">
         <span class="carta-dish-line">
           <span class="carta-dish-name">Abrir la carta</span>
           <span class="carta-leaders" aria-hidden="true"></span>
           <span class="carta-dish-price">hoy</span>
         </span>
-        <span class="carta-dish-desc">Cuatro páginas. Eliges un plato y pasas a la siguiente.</span>
+        <span class="carta-dish-desc">Cuatro páginas. Eliges un plato y la carta sigue abierta.</span>
       </button>
+    `;
+  }
+
+  function chosenNames() {
+    const names = [];
+    PAGES.forEach((page) => {
+      const value = state.answers[page.id];
+      if (!value || !page.options) return;
+      const option = page.options.find((item) => item.id === value);
+      if (option) names.push(option.name);
+    });
+    return names;
+  }
+
+  function leftHtml() {
+    const names = chosenNames();
+    const body = names.length
+      ? `<h3 class="carta-course">La cuenta</h3>
+         <ul class="carta-specials">${names.map((name) => `<li>${escapeHtml(name)}</li>`).join("")}</ul>`
+      : `<h3 class="carta-course">De la casa</h3>
+         <ul class="carta-specials">
+           <li><strong>Rigor.</strong> El conocimiento se contrasta antes de contarse.</li>
+           <li><strong>Oficio.</strong> Guion, imagen, sonido y diseño, en la misma cocina.</li>
+           <li><strong>Público.</strong> Cada pieza se sirve a quien tiene que recibirla.</li>
+         </ul>`;
+    return `
+      <div class="carta-sheet carta-sheet-left">
+        <p class="carta-house">Emeria <b>LAB</b></p>
+        <div class="carta-ornament" aria-hidden="true"><span></span></div>
+        ${body}
+        <p class="carta-sign">Universidad Internacional de La Rioja, UNIR TV.</p>
+      </div>
     `;
   }
 
@@ -202,7 +228,7 @@
       <div class="carta-sheet">
         <p class="carta-house">Emeria <b>LAB</b></p>
         <h2 class="carta-title" tabindex="-1">${page.title}</h2>
-        <div class="carta-rule" aria-hidden="true"></div>
+        <div class="carta-ornament" aria-hidden="true"><span></span></div>
         ${body}
         <div class="carta-foot">
           ${back}
@@ -212,10 +238,15 @@
     `;
   }
 
+  function paintLeft() {
+    left.innerHTML = leftHtml();
+  }
+
   function paint() {
     const html = pageHtml(state.index);
     front.innerHTML = html;
     under.innerHTML = html;
+    paintLeft();
     leaf.style.transform = "";
   }
 
@@ -241,18 +272,24 @@
     state.busy = true;
     scene.classList.add("is-turning");
     try {
+      paintLeft();
       under.innerHTML = pageHtml(nextIndex);
-      const anim = leaf.animate(
-        [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-180deg)" }],
-        { duration: 880, easing: "cubic-bezier(.42, .02, .18, 1)", fill: "forwards" }
+      const lift = leaf.animate(
+        [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-58deg)" }],
+        { duration: 460, easing: "cubic-bezier(.33, .02, .2, 1)", fill: "forwards" }
       );
-      await anim.finished;
+      await lift.finished;
       state.index = nextIndex;
-      const html = pageHtml(state.index);
-      front.innerHTML = html;
+      front.innerHTML = pageHtml(state.index);
+      const settle = leaf.animate(
+        [{ transform: "rotateY(-58deg)" }, { transform: "rotateY(0deg)" }],
+        { duration: 420, easing: "cubic-bezier(.2, .7, .2, 1)", fill: "forwards" }
+      );
+      await settle.finished;
+      under.innerHTML = pageHtml(state.index);
       leaf.style.transform = "rotateY(0deg)";
-      anim.cancel();
-      under.innerHTML = html;
+      lift.cancel();
+      settle.cancel();
       leaf.style.transform = "";
     } finally {
       scene.classList.remove("is-turning");

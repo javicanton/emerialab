@@ -9,7 +9,7 @@
   <link rel="icon" href="favicon.svg">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="styles.css?v=20261116c">
+  <link rel="stylesheet" href="styles.css?v=20261116e">
 </head>
 <body>
   <div class="ambient ambient-one"></div>
@@ -71,18 +71,22 @@
       <header class="section-head">
         <h2 id="carta-heading">La carta</h2>
       </header>
+      <div class="carta-mark">
+        <img src="assets/brand/emeria-lab-logo-transparente.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
+      </div>
       <div class="carta-book">
-        <div class="carta-spine" aria-hidden="true"></div>
-        <div class="carta-scene" id="cartaScene">
-          <div class="carta-under" id="cartaUnder"></div>
-          <div class="carta-leaf" id="cartaLeaf">
-            <div class="carta-face carta-face-front" id="cartaFront"></div>
-            <div class="carta-face carta-face-back" aria-hidden="true"></div>
+        <div class="carta-spread">
+          <div class="carta-page" id="cartaLeft"></div>
+          <div class="carta-scene" id="cartaScene">
+            <div class="carta-under" id="cartaUnder"></div>
+            <div class="carta-leaf" id="cartaLeaf">
+              <div class="carta-face carta-face-front" id="cartaFront"></div>
+            </div>
           </div>
         </div>
       </div>
       <p class="carta-live" id="cartaLive" aria-live="polite"></p>
-      <p class="carta-aside">Cuatro páginas. Al elegir, la carta pasa sola. El <a href="#diagnostico">diagnóstico de siete preguntas</a> sigue disponible.</p>
+      <p class="carta-aside">La carta queda abierta. Lo que pides se queda a la izquierda y la página de la derecha pasa. El <a href="#diagnostico">diagnóstico de siete preguntas</a> sigue disponible.</p>
     </section>
 
     <!-- Diagnóstico / Sugerencias del chef -->
@@ -111,6 +115,6 @@
 
   <script src="data.js?v=20261116b"></script>
   <script src="servicios.js?v=20261116b"></script>
-  <script src="carta.js?v=20261116d"></script>
+  <script src="carta.js?v=20261116e"></script>
 </body>
 </html>

@@ -144,8 +144,8 @@ textarea {
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  -webkit-mask-image: radial-gradient(75% 70% at var(--lx) var(--ly), #000 0%, rgba(0, 0, 0, 0.75) 38%, transparent 78%);
-  mask-image: radial-gradient(75% 70% at var(--lx) var(--ly), #000 0%, rgba(0, 0, 0, 0.75) 38%, transparent 78%);
+  -webkit-mask-image: radial-gradient(95% 85% at var(--lx) var(--ly), #000 0%, rgba(0, 0, 0, 0.82) 46%, transparent 86%);
+  mask-image: radial-gradient(95% 85% at var(--lx) var(--ly), #000 0%, rgba(0, 0, 0, 0.82) 46%, transparent 86%);
 }
 
 .light svg {
@@ -166,7 +166,7 @@ textarea {
 
 .light .glow {
   filter: blur(70px);
-  opacity: 0.7;
+  opacity: 0.88;
 }
 
 /* ─── Cristal ──────────────────────────────────────────────────────── */
@@ -493,13 +493,14 @@ main {
   width: 100%;
 }
 
-/* El logo oficial se recorta solo en su margen vacío, sobre negro sólido. */
+/* El logo se recorta solo en su margen vacío. El fondo es transparente
+   para que la luz de la página se vea a través de la marca. */
 .hero-mark {
   width: min(760px, 92vw);
   aspect-ratio: 612 / 150;
   margin-bottom: clamp(8px, 2vh, 22px);
   overflow: hidden;
-  background: #000;
+  background: transparent;
 }
 
 .hero-logo {

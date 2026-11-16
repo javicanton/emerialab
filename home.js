@@ -60,9 +60,10 @@
     }
   }
 
-  /* La máscara de la luz recorre estos puntos a medida que avanza la página. */
+  /* La máscara de la luz recorre estos puntos a medida que avanza la página.
+     Arranca en la portada, detrás del logo, y baja con el scroll. */
   const LIGHT_PATH = [
-    [0.0, 84, 68],
+    [0.0, 72, 34],
     [0.16, 12, 74],
     [0.32, 88, 30],
     [0.5, 14, 28],
@@ -93,12 +94,17 @@
       ticking = false;
       const max = Math.max(1, root.scrollHeight - window.innerHeight);
       const p = Math.min(1, Math.max(0, window.scrollY / max));
-      let [x, y] = lightAt(p);
-      /* En pantallas estrechas la luz arranca más abajo para dejar el logo sobre negro. */
-      if (window.innerWidth < 861) y = Math.max(y, 96 - p * 400);
+      const [x, y] = lightAt(p);
       root.style.setProperty("--lx", x.toFixed(1) + "%");
       root.style.setProperty("--ly", y.toFixed(1) + "%");
       if (!reduceMotion) root.style.setProperty("--drift", p.toFixed(3));
+      /* El degradado magenta-lima se desplaza: al bajar, la portada cambia de color. */
+      const gradient = document.getElementById("rib-gradient");
+      if (gradient) {
+        const x1 = 520 - p * 1400;
+        gradient.setAttribute("x1", x1.toFixed(0));
+        gradient.setAttribute("x2", (x1 + 1600).toFixed(0));
+      }
     }
 
     window.addEventListener("scroll", () => {
