@@ -1,5 +1,5 @@
 (function () {
-  const data = window.DIVULGAV_DATA;
+  const data = window.EMERIA_DATA;
 
   /* ─── Utilities ─────────────────────────────────────────────── */
   function escapeHtml(text) {
@@ -18,24 +18,20 @@
   };
 
   const servicesState = {
-    selectedId: data.services[0] ? data.services[0].id : null
+    selectedId: data.lines[0].services[0]
   };
 
   function renderServicesSummary() {
     serviceElements.summaryPanel.innerHTML = `
-      <div class="services-summary-head">
-        <p class="services-summary-note">Dra. Inmaculada Berlanga · Dr. Javier Cantón · Dra. Isabel de Azcárraga — Universidad Internacional de La Rioja · UNIR TV</p>
-      </div>
       <div class="services-summary-grid">
-        ${data.services.map((s) => `
-          <button class="service-summary-chip" data-service-id="${s.id}">
-            <span class="service-chip-num">${escapeHtml(s.number)}</span>
+        ${data.lines.map((line) => line.services.map((id) => data.services.find((s) => s.id === id)).filter(Boolean).map((s) => `
+          <button class="service-summary-chip" data-service-id="${escapeHtml(s.id)}">
             <span class="service-chip-name">${escapeHtml(s.name)}</span>
-            <span class="service-chip-price">${escapeHtml(s.clientPrice)}</span>
+            <span class="service-chip-price">${escapeHtml(s.priceFrom)}</span>
           </button>
-        `).join("")}
+        `).join("")).join("")}
       </div>
-      <p class="services-summary-legal">El acceso al servicio se canaliza a través de la Oficina de Transferencia de Conocimiento (OTC) de UNIR. Los precios son orientativos y se negociarán con cada cliente según alcance, complejidad y contexto de cada proyecto.</p>
+      <p class="services-summary-legal">${escapeHtml(data.priceNote)}</p>
     `;
 
     serviceElements.summaryPanel.querySelectorAll(".service-summary-chip").forEach((chip) => {
@@ -43,37 +39,50 @@
         servicesState.selectedId = chip.dataset.serviceId;
         renderServicesCards();
         renderServicesDetail();
-        document.getElementById("servicesCardsGrid").scrollIntoView({ behavior: "smooth", block: "nearest" });
+        serviceElements.detailPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
     });
+
+    const modes = document.getElementById("servicesModes");
+    if (modes) {
+      modes.innerHTML = data.modalities.map((mode) => `
+        <li><strong>${escapeHtml(mode.name)}.</strong> ${escapeHtml(mode.description)}</li>
+      `).join("");
+    }
   }
 
   function renderServicesCards() {
-    serviceElements.resultsInfo.textContent = `${data.services.length} servicios disponibles.`;
+    serviceElements.resultsInfo.textContent = `${data.services.length} servicios en ${data.lines.length} líneas.`;
 
-    serviceElements.cardsGrid.innerHTML = data.services
-      .map((s, index) => `
-        <article class="format-card service-card ${s.id === servicesState.selectedId ? "active" : ""}" data-service-id="${s.id}" style="animation-delay:${index * 35}ms">
-          <div class="service-card-header">
-            <span class="service-num-badge">${escapeHtml(s.number)}</span>
-            <span class="card-topline">${s.tags.map((t) => escapeHtml(t)).join(" · ")}</span>
-          </div>
+    serviceElements.cardsGrid.innerHTML = data.lines.map((line) => `
+      <div class="line-heading" id="linea-${escapeHtml(line.id)}">
+        <h3>${escapeHtml(line.name)}</h3>
+        <p>${escapeHtml(line.summary)}</p>
+      </div>
+      ${line.services.map((id) => data.services.find((s) => s.id === id)).filter(Boolean).map((s) => `
+        <article class="format-card service-card ${s.id === servicesState.selectedId ? "active" : ""}" data-service-id="${escapeHtml(s.id)}" tabindex="0" role="button" aria-pressed="${s.id === servicesState.selectedId}">
+          <span class="card-topline">${s.tags.map((t) => escapeHtml(t)).join(", ")}</span>
           <h3>${escapeHtml(s.name)}</h3>
           <p class="card-desc">${escapeHtml(s.subtitle)}</p>
           <div class="card-metrics">
-            <span class="pill pill-price">${escapeHtml(s.clientPrice)}</span>
-            <span class="pill">${escapeHtml(s.trl)}</span>
-            <span class="pill pill-viability">Viabilidad: ${escapeHtml(s.viability)}</span>
+            <span class="pill pill-price">${escapeHtml(s.priceFrom)}</span>
           </div>
         </article>
-      `)
-      .join("");
+      `).join("")}
+    `).join("");
 
     serviceElements.cardsGrid.querySelectorAll(".service-card").forEach((card) => {
-      card.addEventListener("click", () => {
+      const select = () => {
         servicesState.selectedId = card.dataset.serviceId;
         renderServicesCards();
         renderServicesDetail();
+      };
+      card.addEventListener("click", select);
+      card.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          select();
+        }
       });
     });
   }
@@ -81,11 +90,12 @@
   function renderServicesDetail() {
     const selected = data.services.find((s) => s.id === servicesState.selectedId);
     if (!selected) return;
+    const line = data.lines.find((l) => l.id === selected.line);
 
     serviceElements.detailPanel.innerHTML = `
       <div class="detail-head">
         <div>
-          <span class="service-detail-num">${escapeHtml(selected.number)}</span>
+          ${line ? `<span class="detail-tag">${escapeHtml(line.name)}</span>` : ""}
           <h3 style="margin-top:6px">${escapeHtml(selected.name)}</h3>
           <span class="detail-tag">${escapeHtml(selected.subtitle)}</span>
         </div>
@@ -93,8 +103,6 @@
 
       <div class="service-tags-row">
         ${selected.tags.map((t) => `<span class="service-tag">${escapeHtml(t)}</span>`).join("")}
-        <span class="service-tag service-tag-trl">${escapeHtml(selected.trl)}</span>
-        <span class="service-tag service-tag-viability">Viabilidad: ${escapeHtml(selected.viability)}</span>
       </div>
 
       <p class="detail-definition">${escapeHtml(selected.description)}</p>
@@ -106,20 +114,11 @@
         </section>
 
         <section class="detail-block service-pricing-block">
-          <h4>Precios</h4>
-          <div class="service-price-row">
-            <div class="service-price-cell">
-              <p class="service-price-label">Coste estimado de producción</p>
-              <p class="service-price-value">${escapeHtml(selected.costEstimate)}</p>
-              <p class="service-price-detail">${escapeHtml(selected.costDetail)}</p>
-            </div>
-            <div class="service-price-cell service-price-cell--client">
-              <p class="service-price-label">Precio orientativo al cliente</p>
-              <p class="service-price-value">${escapeHtml(selected.clientPrice)}</p>
-              ${selected.clientPriceDetail ? `<p class="service-price-detail">${escapeHtml(selected.clientPriceDetail)}</p>` : ""}
-            </div>
-          </div>
-          <p class="service-price-note">${escapeHtml(selected.priceNote)}</p>
+          <h4>Precio orientativo</h4>
+          <p class="service-price-value">${escapeHtml(selected.priceFrom)}</p>
+          ${selected.clientPriceDetail ? `<p class="service-price-detail">${escapeHtml(selected.clientPriceDetail)}</p>` : ""}
+          <p class="service-price-note">${escapeHtml(data.priceNote)}</p>
+          <p style="margin-top:14px"><a class="btn btn-primary" href="index.html#contacto">Pedir presupuesto</a></p>
         </section>
       </div>
     `;
@@ -134,11 +133,11 @@
       question: "¿Qué tipo de organización describes?",
       icon: "bi-building",
       options: [
-        { value: "universidad-investigacion", label: "Universidad o centro de investigación", icon: "🎓" },
-        { value: "edtech-empresa",            label: "Empresa EdTech o startup tecnológica", icon: "💡" },
-        { value: "fundacion-museo",           label: "Fundación, museo o institución cultural", icon: "🏛️" },
-        { value: "medio-divulgacion",         label: "Medio de comunicación científica", icon: "📡" },
-        { value: "otro",                      label: "Otro tipo de organización", icon: "🌐" }
+        { value: "universidad-investigacion", label: "Universidad o centro de investigación" },
+        { value: "edtech-empresa",            label: "Empresa EdTech o startup tecnológica" },
+        { value: "fundacion-museo",           label: "Fundación, museo o institución cultural" },
+        { value: "medio-divulgacion",         label: "Medio de comunicación científica" },
+        { value: "otro",                      label: "Otro tipo de organización" }
       ]
     },
     {
@@ -147,11 +146,11 @@
       question: "¿Cuál es tu objetivo principal de comunicación científica?",
       icon: "bi-bullseye",
       options: [
-        { value: "divulgar-resultados", label: "Divulgar resultados de investigación al gran público", icon: "📢" },
-        { value: "formar-capacitar",    label: "Formar o capacitar equipos y audiencias", icon: "📚" },
-        { value: "mejorar-imagen",      label: "Mejorar imagen institucional y captación", icon: "⭐" },
-        { value: "cubrir-evento",       label: "Cubrir un congreso, jornada o evento científico", icon: "🎤" },
-        { value: "crear-audiencia",     label: "Crear una audiencia fiel alrededor de mi institución", icon: "👥" }
+        { value: "divulgar-resultados", label: "Divulgar resultados de investigación al gran público" },
+        { value: "formar-capacitar",    label: "Formar o capacitar equipos y audiencias" },
+        { value: "mejorar-imagen",      label: "Mejorar imagen institucional y captación" },
+        { value: "cubrir-evento",       label: "Cubrir un congreso, jornada o evento científico" },
+        { value: "crear-audiencia",     label: "Crear una audiencia fiel alrededor de mi institución" }
       ]
     },
     {
@@ -160,11 +159,11 @@
       question: "¿A quién va dirigido principalmente tu contenido?",
       icon: "bi-people",
       options: [
-        { value: "comunidad-cientifica", label: "Comunidad científica y académica", icon: "🔬" },
-        { value: "publico-general",      label: "Público general adulto", icon: "🌍" },
-        { value: "jovenes",              label: "Jóvenes y estudiantes", icon: "🧑‍🎓" },
-        { value: "profesionales",        label: "Profesionales e industria", icon: "💼" },
-        { value: "instituciones",        label: "Medios de comunicación e instituciones", icon: "📰" }
+        { value: "comunidad-cientifica", label: "Comunidad científica y académica" },
+        { value: "publico-general",      label: "Público general adulto" },
+        { value: "jovenes",              label: "Jóvenes y estudiantes" },
+        { value: "profesionales",        label: "Profesionales e industria" },
+        { value: "instituciones",        label: "Medios de comunicación e instituciones" }
       ]
     },
     {
@@ -173,11 +172,11 @@
       question: "¿Cuál es tu presupuesto orientativo para el proyecto?",
       icon: "bi-cash-coin",
       options: [
-        { value: "bajo",        label: "Hasta 2.000 €", icon: "💰" },
-        { value: "medio",       label: "Entre 2.000 y 8.000 €", icon: "💰💰" },
-        { value: "alto",        label: "Entre 8.000 y 20.000 €", icon: "💰💰💰" },
-        { value: "premium",     label: "Más de 20.000 €", icon: "💎" },
-        { value: "desconocido", label: "Aún no lo tengo definido", icon: "❓" }
+        { value: "bajo",        label: "Hasta 2.000 €" },
+        { value: "medio",       label: "Entre 2.000 y 8.000 €" },
+        { value: "alto",        label: "Entre 8.000 y 20.000 €" },
+        { value: "premium",     label: "Más de 20.000 €" },
+        { value: "desconocido", label: "Aún no lo tengo definido" }
       ]
     },
     {
@@ -186,10 +185,10 @@
       question: "¿En qué plazo necesitas los primeros resultados?",
       icon: "bi-stopwatch",
       options: [
-        { value: "urgente", label: "Menos de 2 semanas (urgente)", icon: "⚡" },
-        { value: "corto",   label: "1 a 2 meses", icon: "📅" },
-        { value: "medio",   label: "3 a 6 meses", icon: "🗓️" },
-        { value: "largo",   label: "Más de 6 meses", icon: "🔭" }
+        { value: "urgente", label: "Menos de 2 semanas (urgente)" },
+        { value: "corto",   label: "1 a 2 meses" },
+        { value: "medio",   label: "3 a 6 meses" },
+        { value: "largo",   label: "Más de 6 meses" }
       ]
     },
     {
@@ -198,9 +197,9 @@
       question: "¿Dispones de equipo interno de comunicación audiovisual?",
       icon: "bi-person-workspace",
       options: [
-        { value: "ninguno",       label: "No, empezamos desde cero", icon: "🆕" },
-        { value: "basico",        label: "Tenemos alguna persona de comunicación", icon: "🙋" },
-        { value: "especializado", label: "Sí, equipo técnico especializado", icon: "🛠️" }
+        { value: "ninguno",       label: "No, empezamos desde cero" },
+        { value: "basico",        label: "Tenemos alguna persona de comunicación" },
+        { value: "especializado", label: "Sí, equipo técnico especializado" }
       ]
     },
     {
@@ -209,11 +208,11 @@
       question: "¿Qué tipo de resultado buscas?",
       icon: "bi-box-seam",
       options: [
-        { value: "piezas-sueltas",          label: "Piezas individuales (video, podcast, infografía...)", icon: "🎬" },
-        { value: "serie-campana",           label: "Una serie o campaña continuada", icon: "📺" },
-        { value: "ecosistema-multiplataforma", label: "Un ecosistema multiplataforma (web + RRSS + podcast)", icon: "🌐" },
-        { value: "experiencia-inmersiva",   label: "Una experiencia inmersiva o interactiva (VR, gamificación)", icon: "🥽" },
-        { value: "orientacion",             label: "Primero necesito orientación estratégica", icon: "🧭" }
+        { value: "piezas-sueltas",          label: "Piezas individuales (video, podcast, infografía...)" },
+        { value: "serie-campana",           label: "Una serie o campaña continuada" },
+        { value: "ecosistema-multiplataforma", label: "Un ecosistema multiplataforma (web + RRSS + podcast)" },
+        { value: "experiencia-inmersiva",   label: "Una experiencia inmersiva o interactiva (VR, gamificación)" },
+        { value: "orientacion",             label: "Primero necesito orientación estratégica" }
       ]
     }
   ];
@@ -267,6 +266,18 @@
     "resultado:orientacion":                { "auditoria": 4, "taller": 3 }
   };
 
+  /* Los servicios añadidos con las cinco líneas también puntúan. */
+  const SCORING_EXTRA = {
+    "organizacion:universidad-investigacion": { "paquete-proyecto": 2 },
+    "objetivo:divulgar-resultados": { "paquete-proyecto": 2, "infografia-animacion": 1 },
+    "objetivo:mejorar-imagen": { "produccion-documental": 2 },
+    "resultado:piezas-sueltas": { "produccion-documental": 1, "infografia-animacion": 1 },
+    "resultado:serie-campana": { "programa-continuado": 3 }
+  };
+  Object.entries(SCORING_EXTRA).forEach(([key, weights]) => {
+    SCORING[key] = Object.assign({}, SCORING[key], weights);
+  });
+
   /* ─── Questionnaire state ───────────────────────────────────── */
   const qState = {
     currentStep: 0,
@@ -316,7 +327,7 @@
       <div class="quiz-progress-bar" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100">
         <div class="quiz-progress-fill" style="width:${progress}%"></div>
       </div>
-      <p class="quiz-step-label">Paso ${qState.currentStep + 1} de ${totalSteps} · ${escapeHtml(q.label)}</p>
+      <p class="quiz-step-label">Paso ${qState.currentStep + 1} de ${totalSteps}. ${escapeHtml(q.label)}</p>
 
       <div class="quiz-question-wrap" id="quiz-question">
         <i class="bi ${escapeHtml(q.icon)} quiz-q-icon"></i>
@@ -330,16 +341,15 @@
               role="radio"
               aria-checked="${qState.answers[q.id] === opt.value ? "true" : "false"}"
             >
-              <span class="quiz-option-icon">${opt.icon}</span>
               <span class="quiz-option-label">${escapeHtml(opt.label)}</span>
             </button>
           `).join("")}
         </div>
 
         <div class="quiz-nav">
-          ${qState.currentStep > 0 ? `<button class="btn btn-ghost" id="quiz-prev">← Anterior</button>` : `<span></span>`}
+          ${qState.currentStep > 0 ? `<button class="btn btn-ghost" id="quiz-prev">Anterior</button>` : `<span></span>`}
           <button class="btn btn-primary" id="quiz-next" ${qState.answers[q.id] ? "" : "disabled"}>
-            ${qState.currentStep < totalSteps - 1 ? "Siguiente →" : "Ver mis recomendaciones →"}
+            ${qState.currentStep < totalSteps - 1 ? "Siguiente" : "Ver recomendaciones"}
           </button>
         </div>
       </div>
@@ -390,10 +400,9 @@
     wrap.innerHTML = `
       <div class="quiz-results">
         <div class="quiz-results-header">
-          <span class="quiz-results-icon">👨‍🍳</span>
           <div>
-            <h3 class="quiz-results-title">Las sugerencias del chef</h3>
-            <p class="quiz-results-subtitle">Basado en tus respuestas, estos son los servicios DivulgAV más adecuados para ti:</p>
+            <h3 class="quiz-results-title">Servicios recomendados</h3>
+            <p class="quiz-results-subtitle">Según tus respuestas, estos son los servicios de Emeria LAB que mejor encajan:</p>
           </div>
         </div>
 
@@ -401,31 +410,28 @@
           ${recommendations.map((rec, i) => {
             const s = rec.service;
             const pct = maxScore > 0 ? Math.round((rec.score / maxScore) * 100) : 0;
-            const medal = ["🥇", "🥈", "🥉"][i] || "";
             return `
               <article class="quiz-rec-card ${i === 0 ? "quiz-rec-card--top" : ""}">
                 <div class="quiz-rec-header">
-                  <span class="quiz-rec-medal">${medal}</span>
-                  <span class="service-num-badge">${escapeHtml(s.number)}</span>
+                  <span class="quiz-rec-rank">${i + 1}</span>
                   <div class="quiz-rec-title-wrap">
                     <h4>${escapeHtml(s.name)}</h4>
                     <p class="quiz-rec-subtitle">${escapeHtml(s.subtitle)}</p>
                   </div>
-                  <span class="pill pill-price quiz-rec-price">${escapeHtml(s.clientPrice)}</span>
+                  <span class="pill pill-price quiz-rec-price">${escapeHtml(s.priceFrom)}</span>
                 </div>
                 <div class="quiz-rec-match">
                   <div class="quiz-rec-bar-wrap">
                     <div class="quiz-rec-bar" style="width:${pct}%"></div>
                   </div>
-                  <span class="quiz-rec-pct">${pct}% compatibilidad</span>
+                  <span class="quiz-rec-pct">${pct} % de encaje</span>
                 </div>
                 <p class="quiz-rec-desc">${escapeHtml(s.description.slice(0, 200))}…</p>
                 <div class="quiz-rec-tags">
                   ${s.tags.map((t) => `<span class="service-tag">${escapeHtml(t)}</span>`).join("")}
-                  <span class="service-tag service-tag-trl">${escapeHtml(s.trl)}</span>
                 </div>
                 <button class="btn btn-primary quiz-rec-cta" data-service-id="${escapeHtml(s.id)}">
-                  Ver ficha completa →
+                  Ver la ficha
                 </button>
               </article>
             `;
