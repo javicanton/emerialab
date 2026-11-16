@@ -16,6 +16,20 @@
   const serviceById = (id) => data.services.find((s) => s.id === id);
   const lineById = (id) => data.lines.find((l) => l.id === id);
 
+  function serviceMedia(service) {
+    const parts = [];
+    if (service.embed) {
+      parts.push(`<iframe class="service-embed" src="${escapeHtml(service.embed.src)}" title="${escapeHtml(service.embed.title)}" loading="lazy"></iframe>`);
+    }
+    if (service.example && service.example.href) {
+      parts.push(`<p><a class="text-link" href="${escapeHtml(service.example.href)}" target="_blank" rel="noopener">${escapeHtml(service.example.label)}<span class="sr-only"> (se abre en otra pestaña)</span></a></p>`);
+    }
+    if (service.gallery && service.gallery.length) {
+      parts.push(`<div class="service-gallery">${service.gallery.map((image) => `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy">`).join("")}</div>`);
+    }
+    return parts.join("");
+  }
+
   /* ─── Luz de fondo ──────────────────────────────────────────────── */
 
   function drawLight() {
@@ -218,6 +232,7 @@
             <div class="service-body-inner">
               <div class="service-detail">
                 <p>${escapeHtml(service.description)}</p>
+                ${serviceMedia(service)}
                 <ul class="service-includes">
                   ${service.includes.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}
                 </ul>
@@ -357,7 +372,7 @@
           : `<span class="work-cover-brand">${escapeHtml(work.type)}</span>`;
         return `
           <li class="glass work">
-            <div class="work-cover">${cover}</div>
+            <div class="work-cover${work.fit === "contain" ? " work-cover-contain" : ""}">${cover}</div>
             <div class="work-body">
               <p class="work-meta">
                 <span>${escapeHtml(work.type)}</span>

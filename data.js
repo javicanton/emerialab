@@ -288,7 +288,7 @@ window.EMERIA_DATA = {
     {
       id: "visualizacion",
       number: "07",
-      name: "Visualización avanzada de datos científicos",
+      name: "Visualizaciones avanzadas",
       subtitle: "Datos complejos convertidos en relatos visuales de impacto",
       tags: ["Data", "Infografía", "Ciencia Abierta"],
       description: "Transformación de conjuntos de datos complejos (estadísticas, modelos climáticos, datos epidemiológicos, resultados de ensayos clínicos) en piezas audiovisuales de visualización dinámica que hacen comprensibles las tendencias, patrones y conclusiones científicas para audiencias no expertas. El servicio combina diseño de información, motion graphics y narración científica para convertir tablas y gráficos convencionales en relatos visuales impactantes y rigurosos. Especialmente indicado para la comunicación de resultados de investigación, memorias institucionales, informes de impacto y campañas de sensibilización basadas en evidencia.",
@@ -298,7 +298,7 @@ window.EMERIA_DATA = {
         "Narración científica integrada",
         "Indicado para memorias e informes de impacto"
       ],
-      clientPrice: "1.500 – 5.000 € / pieza",
+      clientPrice: "500 – 5.000 € / pieza",
       clientPriceDetail: "",
     },
     {
@@ -1079,8 +1079,8 @@ window.EMERIA_DATA = {
       id: "datos",
       name: "Visualización y comunicación de datos",
       short: "Visualización de datos",
-      summary: "Infografías, animaciones y recursos visuales para explicar resultados y datos complejos.",
-      services: ["visualizacion", "infografia-animacion"]
+      summary: "Visualizaciones, infografías, cómic científico y sketchnotes para explicar datos, proyectos y artículos.",
+      services: ["viz-simple", "visualizacion", "viz-demanda", "infografia-animacion", "comic-cientifico", "sketchnotes"]
     },
     {
       id: "estrategia",
@@ -1160,6 +1160,79 @@ window.EMERIA_DATA = {
       ],
       priceFrom: "Presupuesto a medida",
       clientPriceDetail: ""
+    },
+    {
+      id: "viz-simple",
+      name: "Visualizaciones simples de datos científicos",
+      subtitle: "Un gráfico claro para un resultado, un artículo o una memoria",
+      tags: ["Datos", "Artículo", "Gráfico"],
+      description: "Una visualización estática o sencilla a partir de datos ya preparados: un resultado, una figura de artículo o una memoria. Sirve cuando el mensaje cabe en una pieza y no hace falta una narrativa animada.",
+      includes: [
+        "Lectura de los datos y del mensaje",
+        "Una pieza gráfica lista para publicar",
+        "Versión para web o para el artículo",
+        "Una ronda de revisión"
+      ],
+      priceFrom: "Desde 75 €",
+      clientPriceDetail: ""
+    },
+    {
+      id: "viz-demanda",
+      name: "Visualización a demanda",
+      subtitle: "La producimos, o evaluamos qué necesita tu proyecto o tu artículo",
+      tags: ["A demanda", "Proyecto", "Artículo"],
+      description: "Si el encargo ya está definido, producimos la visualización. Si partes de un proyecto o de un artículo, evaluamos qué conviene visualizar y con qué formato. El steamgraph de un CV académico es un ejemplo: una trayectoria leída en un solo gráfico interactivo. Las anchuras de ese ejemplo son una estimación personal.",
+      includes: [
+        "Producción de la pieza cuando el encargo ya está definido",
+        "Evaluación de qué necesita un proyecto o un artículo",
+        "Propuesta de formato y de alcance",
+        "El precio de la pieza se cierra según sea simple o avanzada"
+      ],
+      priceFrom: "Presupuesto a medida",
+      clientPriceDetail: "",
+      embed: {
+        src: "https://javicanton.github.io/steamgraph-cv/?embed=1",
+        title: "Steamgraph de un CV académico"
+      },
+      example: {
+        label: "Abrir el steamgraph completo",
+        href: "https://javicanton.github.io/steamgraph-cv/"
+      }
+    },
+    {
+      id: "comic-cientifico",
+      name: "Cómic científico",
+      subtitle: "Una investigación o un concepto contados en viñetas",
+      tags: ["Cómic", "Divulgación", "Artículo"],
+      description: "Guion y dibujo de un cómic breve para explicar una investigación, un concepto o un resultado a quien no va a leer el artículo. El alcance (páginas, color y versión digital) se cierra en la propuesta.",
+      includes: [
+        "Guion a partir del material científico",
+        "Dibujo y rotulación",
+        "Revisión con el equipo investigador",
+        "Archivos para web y para impresión"
+      ],
+      priceFrom: "Desde 500 €",
+      clientPriceDetail: ""
+    },
+    {
+      id: "sketchnotes",
+      name: "Sketchnotes",
+      subtitle: "Resúmenes gráficos de una charla, un texto o una idea",
+      tags: ["Sketchnote", "Resumen gráfico", "Docencia"],
+      description: "Notas visuales hechas a mano que resumen una charla, un texto, un concepto o la estructura de un proyecto. Sirven para una clase, una jornada o para explicar una idea de un vistazo.",
+      includes: [
+        "Síntesis del contenido",
+        "Dibujo del resumen gráfico",
+        "Versión digital lista para compartir",
+        "Adaptación al uso (clase, jornada o web)"
+      ],
+      priceFrom: "Presupuesto a medida",
+      clientPriceDetail: "",
+      gallery: [
+        { src: "assets/works/sketchnote-letzebuerg.jpg", alt: "Sketchnote con el mapa cultural de la ciudad de Luxemburgo" },
+        { src: "assets/works/sketchnote-soundhive.jpg", alt: "Sketchnote de SoundHive, propuesta de monitorización para verificadores" },
+        { src: "assets/works/sketchnote-sociologia.jpg", alt: "Sketchnote con un resumen gráfico de la sociología" }
+      ]
     }
   );
 
@@ -1171,7 +1244,7 @@ window.EMERIA_DATA = {
     "video-abstract": "Desde 60 € por pieza",
     "podcast": "Desde 800 € por episodio",
     "video-ia": "Desde 500 € por pieza",
-    "visualizacion": "Desde 1.500 € por pieza",
+    "visualizacion": "Desde 500 €",
     "transmedia": "Desde 6.000 € por temporada",
     "gamificado": "Desde 8.000 €",
     "documental": "Desde 10.000 €",
@@ -1255,6 +1328,46 @@ window.EMERIA_DATA = {
       summary: "Una investigación sobre el uso de cómics digitales en el aprendizaje de idiomas, sintetizada en menos de un minuto para públicos no especializados.",
       url: "", // TODO: enlace público estable
       thumb: ""
+    },
+    {
+      id: "steamgraph-cv",
+      title: "Steamgraph de un CV académico",
+      year: 2026,
+      type: "Visualización",
+      line: "datos",
+      summary: "Ejemplo de visualización a demanda. La trayectoria de Javi Cantón-Correa desde 2005 (investigación, docencia, práctica y formación) en un gráfico interactivo. Las anchuras son una estimación personal.",
+      url: "https://javicanton.github.io/steamgraph-cv/",
+      thumb: ""
+    },
+    {
+      id: "sketchnote-letzebuerg",
+      title: "A cultural map of the Stad Lëtzebuerg",
+      year: 2022,
+      type: "Sketchnote",
+      line: "datos",
+      summary: "Resumen gráfico de la ciudad de Luxemburgo, hecho en el Culture & Computation Lab de la Universidad de Luxemburgo: medios, comportamientos, lugares y organizaciones.",
+      thumb: "assets/works/sketchnote-letzebuerg.jpg",
+      fit: "contain"
+    },
+    {
+      id: "sketchnote-soundhive",
+      title: "SoundHive",
+      year: 2023,
+      type: "Sketchnote",
+      line: "datos",
+      summary: "Propuesta de herramienta de monitorización para verificadores de información. Resumen gráfico del TFM del Máster en Inteligencia Artificial de UNIR (2022-23).",
+      thumb: "assets/works/sketchnote-soundhive.jpg",
+      fit: "contain"
+    },
+    {
+      id: "sketchnote-sociologia",
+      title: "Sociología",
+      year: 2024,
+      type: "Sketchnote",
+      line: "datos",
+      summary: "Resumen gráfico de la sociología: autores, ámbitos y el paso de comprender la sociedad a transformarla.",
+      thumb: "assets/works/sketchnote-sociologia.jpg",
+      fit: "contain"
     }
   ];
 

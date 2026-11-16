@@ -54,7 +54,7 @@ Añade un objeto a `data.team`:
 
 ### Añadir o mover un servicio
 
-1. Añade el servicio a `data.services` (o al bloque `data.services.push(...)`), con `id`, `name`, `subtitle`, `tags`, `description`, `includes` y `priceFrom`.
+1. Añade el servicio a `data.services` (o al bloque `data.services.push(...)`), con `id`, `name`, `subtitle`, `tags`, `description`, `includes` y `priceFrom`. Opcionales: `example` (`{ label, href }`), `embed` (`{ src, title }`) y `gallery` (lista de `{ src, alt }`).
 2. Incluye su `id` en el array `services` de la línea que corresponda dentro de `data.lines`. El orden de ese array es el orden en pantalla.
 
 ### Configurar el formulario de contacto

@@ -6,7 +6,8 @@
     return String(text)
       .replaceAll("&", "&amp;")
       .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;");
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;");
   }
 
   /* ─── Services catalog ──────────────────────────────────────── */
@@ -106,6 +107,9 @@
       </div>
 
       <p class="detail-definition">${escapeHtml(selected.description)}</p>
+      ${selected.embed ? `<iframe class="service-embed" src="${escapeHtml(selected.embed.src)}" title="${escapeHtml(selected.embed.title)}" loading="lazy"></iframe>` : ""}
+      ${selected.example && selected.example.href ? `<p><a class="service-example" href="${escapeHtml(selected.example.href)}" target="_blank" rel="noopener">${escapeHtml(selected.example.label)}</a></p>` : ""}
+      ${selected.gallery && selected.gallery.length ? `<div class="service-gallery">${selected.gallery.map((image) => `<img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" loading="lazy">`).join("")}</div>` : ""}
 
       <div class="detail-grid">
         <section class="detail-block">
@@ -269,10 +273,15 @@
   /* Los servicios añadidos con las cinco líneas también puntúan. */
   const SCORING_EXTRA = {
     "organizacion:universidad-investigacion": { "paquete-proyecto": 2 },
-    "objetivo:divulgar-resultados": { "paquete-proyecto": 2, "infografia-animacion": 1 },
+    "objetivo:divulgar-resultados": { "paquete-proyecto": 2, "infografia-animacion": 1, "viz-simple": 2, "viz-demanda": 1, "comic-cientifico": 1, "sketchnotes": 1 },
     "objetivo:mejorar-imagen": { "produccion-documental": 2 },
-    "resultado:piezas-sueltas": { "produccion-documental": 1, "infografia-animacion": 1 },
-    "resultado:serie-campana": { "programa-continuado": 3 }
+    "resultado:piezas-sueltas": { "produccion-documental": 1, "infografia-animacion": 1, "viz-simple": 2, "comic-cientifico": 2, "sketchnotes": 2 },
+    "resultado:serie-campana": { "programa-continuado": 3 },
+    "audiencia:comunidad-cientifica": { "viz-simple": 2, "viz-demanda": 2 },
+    "presupuesto:bajo": { "viz-simple": 3, "sketchnotes": 2 },
+    "presupuesto:medio": { "comic-cientifico": 2, "sketchnotes": 1 },
+    "resultado:orientacion": { "viz-demanda": 3 },
+    "plazo:corto": { "viz-simple": 1, "sketchnotes": 1 }
   };
   Object.entries(SCORING_EXTRA).forEach(([key, weights]) => {
     SCORING[key] = Object.assign({}, SCORING[key], weights);

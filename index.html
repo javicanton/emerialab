@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="emeria.css?v=20261116">
+  <link rel="stylesheet" href="emeria.css?v=20261116b">
 </head>
 <body>
   <a class="skip-link" href="#servicios">Ir a los servicios</a>
@@ -63,20 +63,19 @@
   <main>
     <!-- 1. Inicio -->
     <section class="band hero" id="inicio">
-      <div class="band-inner hero-grid">
+      <div class="band-inner hero-stack">
         <div class="hero-seq">
-          <img class="hero-logo" src="assets/brand/emeria-lab-logo-negativo.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
+          <div class="hero-mark">
+            <img class="hero-logo" src="assets/brand/emeria-lab-logo-negativo.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
+          </div>
           <h1 class="display">Laboratorio de innovación <b>audiovisual</b></h1>
           <p class="lead">Convertimos investigación e ideas en contenidos y experiencias de comunicación para universidades, centros de investigación, administraciones e instituciones culturales.</p>
           <div class="hero-actions">
-            <a class="btn btn-lime" href="#servicios">Ver servicios</a>
+            <a class="btn btn-lime" href="#servicios">¿Qué podemos hacer por ti?</a>
             <a class="btn btn-glass" href="#contacto">Hablemos</a>
           </div>
         </div>
-        <nav class="glass hero-index" aria-label="Líneas de servicio">
-          <p class="hero-index-title">Qué podemos hacer por ti</p>
-          <div id="heroIndex"></div>
-        </nav>
+        <nav class="hero-lines" id="heroIndex" aria-label="Líneas de servicio"></nav>
       </div>
     </section>
 
@@ -280,7 +279,7 @@
     <p class="footer-legal">© <span id="year">2026</span> Emeria LAB</p>
   </footer>
 
-  <script src="data.js?v=20261116"></script>
-  <script src="home.js?v=20261116"></script>
+  <script src="data.js?v=20261116b"></script>
+  <script src="home.js?v=20261116b"></script>
 </body>
 </html>

@@ -457,6 +457,40 @@ select {
   color: #e4e4de;
 }
 
+.service-embed {
+  width: 100%;
+  height: min(460px, 70vw);
+  margin: 14px 0 8px;
+  border: 0;
+  border-radius: 16px;
+  background: #f7f3ea;
+}
+
+.service-example {
+  color: #defa16;
+  font-weight: 600;
+}
+
+.service-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 4px;
+}
+
+.service-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background: #fff;
+}
+
+@media (max-width: 720px) {
+  .service-gallery {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .detail-grid {
   margin-top: 12px;
   display: grid;
