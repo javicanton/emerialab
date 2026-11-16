@@ -17,6 +17,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 84px;
 }
 
 body {
@@ -1715,4 +1716,346 @@ h3 {
 .pill-price {
   background: rgba(222, 250, 22, 0.08);
   border-color: rgba(222, 250, 22, 0.25);
+}
+
+/* ─── La carta ───────────────────────────────────────────────────────
+   Menú de papel sobre el negro de la página. Cada elección pasa la hoja. */
+
+.carta-book {
+  display: flex;
+  align-items: stretch;
+  width: min(560px, 100%);
+  margin: 8px auto 0;
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.45));
+}
+
+.carta-spine {
+  flex: none;
+  width: 16px;
+  border-radius: 5px 0 0 5px;
+  background:
+    linear-gradient(90deg, #120e0b 0%, #3a2c24 42%, #1a1411 100%);
+}
+
+.carta-scene {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  perspective: 1800px;
+}
+
+.carta-under,
+.carta-leaf {
+  border-radius: 0 8px 8px 0;
+}
+
+.carta-under {
+  position: relative;
+  min-height: 640px;
+  background: #f4ecdc;
+}
+
+.carta-leaf {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: left center;
+  z-index: 2;
+}
+
+.carta-face {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 0 8px 8px 0;
+}
+
+.carta-face-front {
+  background:
+    linear-gradient(90deg, rgba(40, 24, 12, 0.16), rgba(40, 24, 12, 0) 22px),
+    linear-gradient(180deg, #f8f2e6 0%, #f1e6d2 100%);
+  color: #1a120c;
+}
+
+.carta-face-back {
+  transform: rotateY(180deg);
+  background:
+    linear-gradient(270deg, rgba(40, 24, 12, 0.18), rgba(40, 24, 12, 0) 22px),
+    linear-gradient(180deg, #e7dcc8, #dccfb8);
+}
+
+.carta-sheet {
+  display: flex;
+  flex-direction: column;
+  min-height: 640px;
+  padding: 32px 32px 22px 36px;
+}
+
+.carta-house {
+  margin: 0;
+  text-align: center;
+  font-size: 0.98rem;
+  font-weight: 300;
+}
+
+.carta-house b,
+.carta-watermark b {
+  font-weight: 700;
+}
+
+.carta-title {
+  margin: 8px 0 0;
+  text-align: center;
+  color: #1a120c;
+  font-size: clamp(1.7rem, 4vw, 2.35rem);
+  font-weight: 300;
+  line-height: 1.12;
+}
+
+.carta-title b {
+  font-weight: 700;
+}
+
+.carta-rule {
+  width: 68%;
+  height: 0;
+  margin: 16px auto 22px;
+  border: 0;
+  border-top: 1px solid #1a120c;
+  position: relative;
+}
+
+.carta-rule::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 4px;
+  border-top: 1px solid #1a120c;
+}
+
+#carta {
+  scroll-margin-top: 76px;
+}
+
+.carta-lead,
+.carta-prose,
+.carta-sign {
+  margin: 0;
+  text-align: center;
+  font-size: 1.02rem;
+  line-height: 1.45;
+}
+
+.carta-prose {
+  text-align: left;
+  font-weight: 300;
+}
+
+.carta-lead {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.carta-course {
+  margin: 18px 0 8px;
+  text-align: center;
+  color: #1a120c;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.carta-specials {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 6px;
+  font-weight: 300;
+}
+
+.carta-sign {
+  margin-top: 16px;
+  font-size: 0.92rem;
+  font-weight: 300;
+}
+
+.carta-dishes,
+.carta-orders {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 4px;
+}
+
+.carta-dish,
+.carta-order,
+.carta-again,
+.carta-back,
+.carta-ficha {
+  font: inherit;
+  color: inherit;
+}
+
+.carta-dish {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.carta-dish:hover,
+.carta-dish.is-chosen,
+.carta-dish[aria-pressed="true"] {
+  background: rgba(26, 18, 12, 0.05);
+}
+
+.carta-dish-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.carta-dish-name {
+  font-size: 1.12rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.carta-leaders {
+  flex: 1;
+  border-bottom: 1px dotted rgba(26, 18, 12, 0.45);
+  transform: translateY(-3px);
+}
+
+.carta-dish-price {
+  flex: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #9d123c;
+  white-space: nowrap;
+}
+
+.carta-dish-desc {
+  display: block;
+  margin-top: 2px;
+  max-width: 42em;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.35;
+}
+
+.carta-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 18px;
+}
+
+.carta-back,
+.carta-again,
+.carta-ficha {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.carta-back {
+  padding: 0;
+  font-size: 0.92rem;
+}
+
+.carta-folio {
+  margin-left: auto;
+  min-width: 1.2em;
+  text-align: center;
+  font-weight: 500;
+}
+
+.carta-orders {
+  margin-top: 14px;
+  gap: 16px;
+}
+
+.carta-order .carta-dish-name {
+  font-weight: 600;
+}
+
+.carta-ficha,
+.carta-again {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 0;
+  font-weight: 600;
+  color: #9d123c;
+}
+
+.carta-again {
+  margin-top: 18px;
+}
+
+.carta-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.carta-aside {
+  width: min(560px, 100%);
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.carta-aside a {
+  color: var(--ink);
+}
+
+.carta-scene.is-turning .carta-leaf {
+  box-shadow: 12px 0 28px rgba(0, 0, 0, 0.28);
+}
+
+@media (max-width: 640px) {
+  .carta-under,
+  .carta-sheet {
+    min-height: 560px;
+  }
+
+  .carta-sheet {
+    padding: 24px 16px 16px 20px;
+  }
+
+  .carta-leaders {
+    display: none;
+  }
+
+  .carta-dish-line {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .carta-dish-name {
+    font-size: 1.05rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carta-leaf {
+    transition: none;
+  }
 }
