@@ -3,111 +3,284 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="DivulgAV — Repositorio de innovación en divulgación científica. Biblia de formatos audiovisuales y catálogo de servicios de producción.">
-  <title>DivulgAV</title>
+  <meta name="description" content="Emeria LAB es un laboratorio de innovación audiovisual. Transformamos conocimiento en impacto: comunicación de proyectos de investigación, producción audiovisual y visualización de datos.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="Emeria LAB. Transformamos conocimiento en impacto">
+  <meta property="og:description" content="Laboratorio de innovación audiovisual para ciencia, cultura, educación e innovación.">
+  <meta property="og:type" content="website">
+  <title>Emeria LAB. Transformamos conocimiento en impacto</title>
   <link rel="icon" href="favicon.svg">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/barlow.css">
+  <link rel="stylesheet" href="emeria.css?v=20261116">
 </head>
-<body class="landing-body">
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+<body>
+  <a class="skip-link" href="#servicios">Ir a los servicios</a>
 
-  <header class="site-header">
-    <a class="brand" href="#">
-      <img src="logo.svg" alt="DivulgAV" class="brand-logo">
-    </a>
-    <nav class="site-nav" aria-label="Navegación principal">
-      <a href="formatos.html">Biblia de Formatos</a>
-      <a href="servicios.html">Servicios</a>
+  <!-- Luz de fondo: las bandas las dibuja home.js -->
+  <div class="light" aria-hidden="true">
+    <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice" id="lightField">
+      <defs>
+        <linearGradient id="rib-gradient" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1600" y2="0">
+          <stop offset="0" stop-color="#f50152"/>
+          <stop offset="0.3" stop-color="#f50152"/>
+          <stop offset="0.85" stop-color="#defa16"/>
+          <stop offset="1" stop-color="#defa16"/>
+        </linearGradient>
+      </defs>
+      <g class="ribs glow"></g>
+      <g class="ribs lines"></g>
+    </svg>
+  </div>
+
+  <header>
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="nav-brand" href="#inicio" aria-label="Emeria LAB, inicio">
+        <img src="assets/brand/emeria-lab-imagotipo.svg" alt="" width="30" height="30">
+        <span>Emeria LAB</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#servicios">Servicios</a>
+        <a href="#como">Cómo trabajamos</a>
+        <a href="#trabajos">Trabajos</a>
+        <a href="#equipo">Equipo</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navSheet">Menú</button>
+      <a class="btn btn-lime btn-small" href="#contacto">Hablemos</a>
     </nav>
+    <div class="nav-sheet" id="navSheet" data-open="false">
+      <a href="#que-hacemos">Qué hacemos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#como">Cómo trabajamos</a>
+      <a href="#metodo">Método</a>
+      <a href="#trabajos">Trabajos</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#contacto">Contacto</a>
+    </div>
   </header>
 
-  <main class="landing-main">
-    <div class="landing-hero">
-      <p class="eyebrow">Repositorio de innovación en divulgación científica</p>
-      <h1 class="landing-h1">
-        <span class="landing-h1-line">Ciencia que</span>
-        <span class="landing-h1-accent">se ve, se escucha</span>
-        <span class="landing-h1-line">y se siente</span>
-      </h1>
-      <p class="landing-tagline">
-        DivulgAV sistematiza la innovación en comunicación científica audiovisual:
-        un repositorio metodológico y un catálogo de servicios para universidades,
-        centros de investigación e instituciones culturales.
-      </p>
-      <p class="landing-authors">
-        Dra. Inmaculada Berlanga · Dr. Javier Cantón · Dra. Isabel de Azcárraga<br>
-        Universidad Internacional de La Rioja · UNIR TV
-      </p>
-    </div>
-
-    <div class="landing-cards" role="navigation" aria-label="Secciones principales">
-
-      <a href="formatos.html" class="landing-card landing-card--formatos" aria-label="Ir a la Biblia de Formatos">
-        <div class="landing-card-inner">
-          <div class="landing-card-top">
-            <span class="landing-card-badge">Investigación</span>
-          </div>
-          <div class="landing-card-visual landing-card-visual--formatos" aria-hidden="true">
-            <span class="landing-card-emoji">📚</span>
-            <div class="landing-card-dots">
-              <span></span><span></span><span></span>
-              <span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="landing-card-body">
-            <h2>Biblia de Formatos</h2>
-            <p>16 formatos audiovisuales documentados con metodología científica: catálogo interactivo, matriz comparativa, casos de éxito y gobernanza ética.</p>
-            <ul class="landing-card-pills">
-              <li>16 formatos</li>
-              <li>7 familias</li>
-              <li>Casos de éxito</li>
-            </ul>
-          </div>
-          <div class="landing-card-footer">
-            <span class="landing-card-cta">Explorar formatos <i class="bi bi-arrow-right"></i></span>
+  <main>
+    <!-- 1. Inicio -->
+    <section class="band hero" id="inicio">
+      <div class="band-inner hero-grid">
+        <div class="hero-seq">
+          <img class="hero-logo" src="assets/brand/emeria-lab-logo-negativo.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
+          <h1 class="display">Laboratorio de innovación <b>audiovisual</b></h1>
+          <p class="lead">Convertimos investigación e ideas en contenidos y experiencias de comunicación para universidades, centros de investigación, administraciones e instituciones culturales.</p>
+          <div class="hero-actions">
+            <a class="btn btn-lime" href="#servicios">Ver servicios</a>
+            <a class="btn btn-glass" href="#contacto">Hablemos</a>
           </div>
         </div>
-      </a>
+        <nav class="glass hero-index" aria-label="Líneas de servicio">
+          <p class="hero-index-title">Qué podemos hacer por ti</p>
+          <div id="heroIndex"></div>
+        </nav>
+      </div>
+    </section>
 
-      <a href="servicios.html" class="landing-card landing-card--servicios" aria-label="Ir al catálogo de Servicios DivulgAV">
-        <div class="landing-card-inner">
-          <div class="landing-card-top">
-            <span class="landing-card-badge landing-card-badge--servicios">Transferencia</span>
+    <!-- 2. Qué hacemos -->
+    <section class="band" id="que-hacemos" aria-labelledby="que-hacemos-title">
+      <div class="band-inner about-grid">
+        <div>
+          <h2 class="sr-only" id="que-hacemos-title">Qué hacemos</h2>
+          <p class="about-statement">Integramos <strong>investigación, creatividad y tecnologías emergentes</strong> para que el conocimiento llegue a las personas a las que tiene que llegar.</p>
+          <p class="about-note">Cada proyecto se apoya en cuatro pilares: conocimiento, tecnología, creatividad y audiencias. Por eso el rigor entra desde el guion y la medición llega hasta la entrega.</p>
+        </div>
+        <ul class="fields">
+          <li class="glass field-card">
+            <h3>Ciencia</h3>
+            <p>Divulgación de investigaciones, comunicación de resultados y proyectos científicos.</p>
+          </li>
+          <li class="glass field-card">
+            <h3>Cultura</h3>
+            <p>Patrimonio, creación artística, contenidos culturales y narrativas documentales.</p>
+          </li>
+          <li class="glass field-card">
+            <h3>Educación</h3>
+            <p>Recursos audiovisuales de aprendizaje, comunicación educativa y nuevos formatos didácticos.</p>
+          </li>
+          <li class="glass field-card">
+            <h3>Innovación</h3>
+            <p>Experimentación narrativa y tecnológica, inteligencia artificial y formatos emergentes.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 3. Servicios -->
+    <section class="band" id="servicios" aria-labelledby="servicios-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="servicios-title">Cinco líneas <b>de servicio</b></h2>
+          <p class="lead">Elige una línea para ver qué incluye. Los precios son orientativos y se ajustan al alcance de cada proyecto.</p>
+        </header>
+        <div class="services">
+          <div class="line-tabs" id="lineTabs" role="tablist" aria-label="Líneas de servicio"></div>
+          <div class="glass line-panel" id="linePanel" role="tabpanel" tabindex="0"></div>
+        </div>
+        <p class="services-more">
+          <a class="text-link" href="servicios.html">Ver el catálogo completo</a>
+          <a class="text-link" href="servicios.html#diagnostico">No sé qué necesito: hacer el diagnóstico</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- 4. Cómo trabajamos contigo -->
+    <section class="band" id="como" aria-labelledby="como-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="como-title">Tres formas <b>de trabajar contigo</b></h2>
+          <p class="lead">Del encargo puntual a la producción de todo el año. Lo que cambia es el alcance, y el equipo es el mismo.</p>
+        </header>
+        <ul class="modes" id="modes"></ul>
+        <div class="audiences">
+          <div class="audience">
+            <h3>Si eres de UNIR</h3>
+            <p>Trabajamos con grupos de investigación, proyectos y unidades de la universidad. El encargo se canaliza a través de la Oficina de Transferencia de Conocimiento (OTC).</p>
           </div>
-          <div class="landing-card-visual landing-card-visual--servicios" aria-hidden="true">
-            <span class="landing-card-emoji">🎬</span>
-            <div class="landing-card-dots">
-              <span></span><span></span><span></span>
-              <span></span><span></span><span></span>
-            </div>
-          </div>
-          <div class="landing-card-body">
-            <h2>Servicios DivulgAV</h2>
-            <p>12 servicios de producción audiovisual y consultoría para comunicar ciencia con impacto. Incluye diagnóstico personalizado para encontrar el servicio ideal.</p>
-            <ul class="landing-card-pills">
-              <li>12 servicios</li>
-              <li>IA integrada</li>
-              <li>Diagnóstico gratis</li>
-            </ul>
-          </div>
-          <div class="landing-card-footer">
-            <span class="landing-card-cta landing-card-cta--servicios">Descubrir servicios <i class="bi bi-arrow-right"></i></span>
+          <div class="audience">
+            <h3>Si vienes de otra entidad</h3>
+            <p>Universidades, centros de investigación, administraciones, instituciones culturales y empresas. Te preparamos una propuesta con alcance, plazos y presupuesto.</p>
           </div>
         </div>
-      </a>
+      </div>
+    </section>
 
-    </div>
+    <!-- 5. Método -->
+    <section class="band" id="metodo" aria-labelledby="metodo-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="metodo-title">Un método <b>en seis fases</b></h2>
+          <p class="lead">Cada fase termina con un entregable que validas antes de pasar a la siguiente.</p>
+        </header>
+        <ol class="glass method" id="method"></ol>
+      </div>
+    </section>
+
+    <!-- 6. Trabajos -->
+    <section class="band" id="trabajos" aria-labelledby="trabajos-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="trabajos-title">Trabajos <b>del equipo</b></h2>
+        </header>
+        <div class="filters" id="workFilters" role="group" aria-label="Filtrar trabajos por línea de servicio"></div>
+        <ul class="works" id="works" aria-live="polite"></ul>
+        <p class="works-more" id="worksMoreWrap" hidden>
+          <button class="btn btn-glass" id="worksMore" type="button">Ver más trabajos</button>
+        </p>
+      </div>
+    </section>
+
+    <!-- 7. Equipo -->
+    <section class="band" id="equipo" aria-labelledby="equipo-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="equipo-title">Quién está <b>detrás</b></h2>
+          <p class="lead">Un equipo de comunicación, investigación y producción audiovisual, organizado en cuatro áreas que se coordinan en cada encargo.</p>
+        </header>
+        <div class="team-grid">
+          <div>
+            <ul class="people" id="people"></ul>
+            <p class="team-note">Universidad Internacional de La Rioja, UNIR TV.</p>
+          </div>
+          <ul class="glass areas" id="areas"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Contacto -->
+    <section class="band" id="contacto" aria-labelledby="contacto-title">
+      <div class="band-inner contact-grid">
+        <div>
+          <h2 class="title" id="contacto-title">Cuéntanos <b>tu proyecto</b></h2>
+          <p class="lead">Con unas líneas nos basta para empezar. Te respondemos por correo con los siguientes pasos.</p>
+          <div class="contact-paths">
+            <div>
+              <h3>¿Estás preparando una propuesta de proyecto?</h3>
+              <p>Escríbenos cuanto antes: la comunicación se define mejor mientras se redacta la propuesta.</p>
+            </div>
+            <div>
+              <h3>¿Todavía no sabes qué necesitas?</h3>
+              <p>Prueba el <a class="text-link" href="servicios.html#diagnostico">diagnóstico de siete preguntas</a>.</p>
+            </div>
+          </div>
+        </div>
+
+        <form class="glass contact-form" id="contactForm" novalidate>
+          <div class="form-row">
+            <label for="cf-name">Nombre</label>
+            <input class="input" id="cf-name" name="nombre" type="text" autocomplete="name" required>
+          </div>
+          <div class="form-row">
+            <label for="cf-org">Organización</label>
+            <input class="input" id="cf-org" name="organizacion" type="text" autocomplete="organization">
+          </div>
+          <div class="form-row wide">
+            <label for="cf-email">Correo electrónico</label>
+            <input class="input" id="cf-email" name="correo" type="email" autocomplete="email" required>
+          </div>
+          <fieldset class="form-row">
+            <legend>Desde dónde escribes</legend>
+            <div class="segmented">
+              <label><input type="radio" name="perfil" value="UNIR"> UNIR</label>
+              <label><input type="radio" name="perfil" value="Entidad externa" checked> Otra entidad</label>
+            </div>
+          </fieldset>
+          <div class="form-row">
+            <label for="cf-line">Qué te interesa</label>
+            <select class="input" id="cf-line" name="linea"></select>
+          </div>
+          <div class="form-row wide">
+            <label for="cf-message">Cuéntanos qué necesitas</label>
+            <textarea class="input" id="cf-message" name="mensaje" required placeholder="Qué quieres comunicar, a quién y para cuándo"></textarea>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="cf-web">No rellenes este campo</label>
+            <input id="cf-web" name="web" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consent form-row wide">
+            <input type="checkbox" name="consentimiento" required>
+            <span>Acepto que Emeria LAB use estos datos para responder a mi consulta.</span>
+          </label>
+          <div class="form-foot form-row wide">
+            <button class="btn btn-lime" type="submit" id="contactSubmit">Enviar consulta</button>
+            <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer">
-    <p>DivulgAV | Biblia de formatos audiovisuales para innovación en divulgación científica.</p>
-    <p>Versión inicial web construida a partir de la documentación de proyecto y la investigación en PDF.</p>
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <img class="footer-logo" src="assets/brand/emeria-lab-logo-negativo.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto" loading="lazy">
+        <p>Laboratorio de innovación audiovisual. Universidad Internacional de La Rioja, UNIR TV.</p>
+      </div>
+      <nav aria-label="Emeria LAB">
+        <h2>Emeria LAB</h2>
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#trabajos">Trabajos</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Recursos">
+        <h2>Recursos</h2>
+        <ul>
+          <li><a href="servicios.html">Catálogo completo</a></li>
+          <li><a href="servicios.html#diagnostico">Diagnóstico</a></li>
+          <li><a href="formatos.html">Biblia de formatos</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-legal">© <span id="year">2026</span> Emeria LAB</p>
   </footer>
 
+  <script src="data.js?v=20261116"></script>
+  <script src="home.js?v=20261116"></script>
 </body>
 </html>
