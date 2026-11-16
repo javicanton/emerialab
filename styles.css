@@ -1,12 +1,14 @@
+/* Páginas secundarias de Emeria LAB (catálogo completo, diagnóstico y Biblia de formatos).
+   Tema oscuro con los colores del manual de identidad. La portada usa emeria.css. */
 :root {
-  --bg: #f4f0e8;
-  --ink: #1f1b16;
-  --muted: #5f5649;
-  --panel: #fffaf2;
-  --line: #d9cdb9;
-  --accent: #d45f2c;
-  --accent-2: #0b7a77;
-  --shadow: 0 12px 30px rgba(31, 27, 22, 0.11);
+  --bg: #000000;
+  --ink: #f2f2ee;
+  --muted: #b4b4ae;
+  --panel: #141414;
+  --line: #2e2e2e;
+  --accent: #f50152;
+  --accent-2: #defa16;
+  --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
 }
 
 * {
@@ -21,7 +23,7 @@ body {
   margin: 0;
   color: var(--ink);
   background: var(--bg);
-  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.45;
 }
 
@@ -37,7 +39,7 @@ body {
 .ambient-one {
   width: 420px;
   height: 420px;
-  background: #f6b38f;
+  background: #f50152;
   top: -110px;
   right: -130px;
 }
@@ -45,7 +47,7 @@ body {
 .ambient-two {
   width: 460px;
   height: 460px;
-  background: #83cbc4;
+  background: #defa16;
   bottom: -170px;
   left: -120px;
 }
@@ -59,8 +61,8 @@ body {
   align-items: center;
   padding: 14px 24px;
   backdrop-filter: blur(8px);
-  background: rgba(244, 240, 232, 0.88);
-  border-bottom: 1px solid rgba(217, 205, 185, 0.7);
+  background: rgba(10, 10, 10, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .brand {
@@ -100,7 +102,7 @@ body {
 }
 
 .site-nav a:hover {
-  background: rgba(11, 122, 119, 0.1);
+  background: rgba(222, 250, 22, 0.1);
 }
 
 .section-shell {
@@ -129,7 +131,7 @@ h1,
 h2,
 h3,
 h4 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   line-height: 1.1;
   margin: 0;
 }
@@ -149,7 +151,7 @@ h3 {
 .hero-subtitle {
   margin: 14px 0 0;
   font-size: 1.1rem;
-  color: #3e372d;
+  color: #e4e4de;
 }
 
 .hero-summary {
@@ -180,19 +182,19 @@ h3 {
 }
 
 .btn-primary {
-  color: #fff;
-  background: linear-gradient(120deg, var(--accent), #ea8a41);
+  color: #000;
+  background: var(--accent-2);
   box-shadow: var(--shadow);
 }
 
 .btn-ghost {
   color: var(--ink);
-  background: #f7efe3;
+  background: #1c1c1c;
   border-color: var(--line);
 }
 
 .hero-aside {
-  background: linear-gradient(160deg, #fff8ef, #f7f1e8);
+  background: linear-gradient(160deg, #1b1b1b, #121212);
   border: 1px solid var(--line);
   border-radius: 20px;
   padding: 18px;
@@ -211,7 +213,7 @@ h3 {
 }
 
 .kpi-card {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.06);
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 10px;
@@ -277,7 +279,7 @@ h3 {
 }
 
 .decision-card {
-  background: #fff;
+  background: #161616;
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 12px;
@@ -315,7 +317,7 @@ input,
 select {
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #fff;
+  background: #161616;
   padding: 9px 10px;
   font: inherit;
   color: var(--ink);
@@ -341,7 +343,7 @@ select {
 }
 
 .format-card {
-  background: #fff;
+  background: #161616;
   border: 1px solid var(--line);
   border-radius: 16px;
   padding: 13px 14px;
@@ -349,13 +351,13 @@ select {
 }
 
 .format-card:hover {
-  border-color: #c8b79f;
+  border-color: #5a5a5a;
   transform: translateY(-1px);
 }
 
 .format-card.active {
   border-color: var(--accent);
-  box-shadow: 0 8px 18px rgba(212, 95, 44, 0.18);
+  box-shadow: 0 8px 18px rgba(245, 1, 82, 0.18);
 }
 
 .card-topline {
@@ -363,8 +365,8 @@ select {
   align-items: center;
   gap: 6px;
   padding: 3px 9px;
-  background: rgba(11, 122, 119, 0.12);
-  color: #095f5d;
+  background: rgba(222, 250, 22, 0.12);
+  color: #defa16;
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
@@ -395,7 +397,7 @@ select {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 7px;
-  color: #3f3427;
+  color: #e4e4de;
   font-size: 0.82rem;
 }
 
@@ -424,7 +426,7 @@ select {
   padding: 3px 8px;
   font-size: 0.74rem;
   color: var(--muted);
-  background: #fcf7ef;
+  background: #181818;
 }
 
 .detail-panel {
@@ -445,14 +447,14 @@ select {
   padding: 3px 8px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  color: #095f5d;
-  background: rgba(11, 122, 119, 0.08);
+  color: #defa16;
+  background: rgba(222, 250, 22, 0.08);
   font-size: 0.78rem;
 }
 
 .detail-definition {
   margin: 10px 0 0;
-  color: #302a22;
+  color: #e4e4de;
 }
 
 .detail-grid {
@@ -491,7 +493,7 @@ select {
   border-radius: 16px;
   padding: 22px;
   color: var(--muted);
-  background: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .matrix-layout {
@@ -512,7 +514,7 @@ select {
 
 .case-format {
   margin: 0 0 12px;
-  color: #3d3328;
+  color: #e4e4de;
 }
 
 .format-link-row {
@@ -526,16 +528,16 @@ select {
   align-items: center;
   text-decoration: none;
   border: 1px solid var(--line);
-  background: #fff;
+  background: #161616;
   border-radius: 999px;
   padding: 5px 10px;
   font-size: 0.82rem;
-  color: #095f5d;
+  color: #defa16;
 }
 
 .format-link-chip:hover {
   border-color: var(--accent-2);
-  background: rgba(11, 122, 119, 0.08);
+  background: rgba(222, 250, 22, 0.08);
 }
 
 table {
@@ -553,7 +555,7 @@ td {
 }
 
 th {
-  color: #1c635f;
+  color: #defa16;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -570,20 +572,20 @@ th {
   height: auto;
   margin-top: 10px;
   border-radius: 10px;
-  background: #fffefb;
+  background: #101010;
 }
 
 .axis-label {
   font-size: 11px;
-  fill: #5d5245;
-  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  fill: #b4b4ae;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
 }
 
 .axis-title {
   font-size: 12px;
-  fill: #1f1b16;
+  fill: #e4e4de;
   font-weight: 700;
-  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
 }
 
 .correlation-svg a {
@@ -592,21 +594,21 @@ th {
 
 .point-label {
   font-size: 11px;
-  fill: #2f2a24;
-  font-family: "Space Grotesk", "Trebuchet MS", sans-serif;
+  fill: #e4e4de;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
 }
 
 .correlation-tooltip {
   position: absolute;
   z-index: 2;
   max-width: 280px;
-  background: #fffaf2;
+  background: #141414;
   border: 1px solid var(--line);
   border-radius: 12px;
   box-shadow: var(--shadow);
   padding: 10px 12px;
   font-size: 0.82rem;
-  color: #302a22;
+  color: #e4e4de;
   pointer-events: none;
   opacity: 0;
   transform: translateY(4px);
@@ -639,7 +641,7 @@ th {
 
 .chart-label {
   font-size: 0.8rem;
-  color: #3c342b;
+  color: #e4e4de;
 }
 
 .chart-bars {
@@ -649,7 +651,7 @@ th {
 
 .bar-track {
   width: 100%;
-  background: #ece3d6;
+  background: #2a2a2a;
   border-radius: 999px;
   height: 8px;
 }
@@ -660,11 +662,11 @@ th {
 }
 
 .bar-cost {
-  background: linear-gradient(120deg, #ea8a41, #d45f2c);
+  background: linear-gradient(120deg, #f50152, #a3003a);
 }
 
 .bar-time {
-  background: linear-gradient(120deg, #1f9d98, #0b7a77);
+  background: linear-gradient(120deg, #defa16, #9aa217);
 }
 
 .bar-legend {
@@ -773,7 +775,7 @@ th {
   grid-template-rows: auto auto;
   column-gap: 8px;
   row-gap: 2px;
-  background: #fff;
+  background: #161616;
   border: 1px solid var(--line);
   border-radius: 12px;
   padding: 10px 12px;
@@ -786,7 +788,7 @@ th {
 .service-summary-chip:hover {
   border-color: var(--accent-2);
   transform: translateY(-1px);
-  box-shadow: 0 6px 14px rgba(11, 122, 119, 0.12);
+  box-shadow: 0 6px 14px rgba(222, 250, 22, 0.12);
 }
 
 .service-chip-num {
@@ -795,7 +797,7 @@ th {
   font-size: 1.05rem;
   font-weight: 700;
   color: var(--accent-2);
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   min-width: 26px;
 }
 
@@ -829,7 +831,7 @@ th {
 }
 
 .service-num-badge {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 1rem;
   font-weight: 700;
   color: var(--accent-2);
@@ -837,20 +839,20 @@ th {
 }
 
 .pill-price {
-  background: rgba(212, 95, 44, 0.1);
-  border-color: rgba(212, 95, 44, 0.25);
+  background: rgba(245, 1, 82, 0.1);
+  border-color: rgba(245, 1, 82, 0.25);
   color: var(--accent);
   font-weight: 700;
 }
 
 .pill-viability {
-  background: rgba(11, 122, 119, 0.08);
-  border-color: rgba(11, 122, 119, 0.2);
-  color: #095f5d;
+  background: rgba(222, 250, 22, 0.08);
+  border-color: rgba(222, 250, 22, 0.2);
+  color: #defa16;
 }
 
 .service-detail-num {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 2.2rem;
   font-weight: 700;
   color: var(--accent-2);
@@ -868,31 +870,31 @@ th {
 .service-tag {
   display: inline-block;
   padding: 3px 9px;
-  background: rgba(11, 122, 119, 0.1);
-  color: #095f5d;
-  border: 1px solid rgba(11, 122, 119, 0.2);
+  background: rgba(222, 250, 22, 0.1);
+  color: #defa16;
+  border: 1px solid rgba(222, 250, 22, 0.2);
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 600;
 }
 
 .service-tag-trl {
-  background: rgba(31, 27, 22, 0.06);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--line);
   color: var(--muted);
 }
 
 .service-tag-viability {
-  background: rgba(212, 95, 44, 0.08);
-  border-color: rgba(212, 95, 44, 0.2);
+  background: rgba(245, 1, 82, 0.08);
+  border-color: rgba(245, 1, 82, 0.2);
   color: var(--accent);
 }
 
 .service-pricing-block {
-  border: 1px solid rgba(212, 95, 44, 0.2);
+  border: 1px solid rgba(245, 1, 82, 0.2);
   border-radius: 14px;
   padding: 14px;
-  background: linear-gradient(145deg, #fff8ef, #fdf4ea);
+  background: linear-gradient(145deg, #1b1b1b, #121212);
 }
 
 .service-price-row {
@@ -908,7 +910,7 @@ th {
 }
 
 .service-price-cell--client {
-  border-left: 2px solid rgba(212, 95, 44, 0.25);
+  border-left: 2px solid rgba(245, 1, 82, 0.25);
   padding-left: 12px;
 }
 
@@ -923,7 +925,7 @@ th {
 
 .service-price-value {
   margin: 0;
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--accent);
@@ -941,7 +943,7 @@ th {
   font-size: 0.78rem;
   color: var(--muted);
   font-style: italic;
-  border-top: 1px solid rgba(212, 95, 44, 0.2);
+  border-top: 1px solid rgba(245, 1, 82, 0.2);
   padding-top: 8px;
 }
 
@@ -956,7 +958,7 @@ th {
 
   .service-price-cell--client {
     border-left: none;
-    border-top: 2px solid rgba(212, 95, 44, 0.25);
+    border-top: 2px solid rgba(245, 1, 82, 0.25);
     padding-left: 0;
     padding-top: 10px;
   }
@@ -1044,7 +1046,7 @@ th {
 }
 
 .landing-h1 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(2.2rem, 5vw, 3.6rem);
   font-weight: 700;
   line-height: 1.1;
@@ -1100,7 +1102,7 @@ th {
 .landing-card:hover,
 .landing-card:focus-visible {
   transform: translateY(-6px);
-  box-shadow: 0 20px 48px rgba(31, 27, 22, 0.16);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.6);
   outline: none;
 }
 
@@ -1131,14 +1133,14 @@ th {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--accent-2);
-  background: rgba(11, 122, 119, 0.1);
+  background: rgba(222, 250, 22, 0.1);
   border-radius: 20px;
   padding: 3px 10px;
 }
 
 .landing-card-badge--servicios {
   color: var(--accent);
-  background: rgba(212, 95, 44, 0.1);
+  background: rgba(245, 1, 82, 0.1);
 }
 
 .landing-card-visual {
@@ -1153,11 +1155,11 @@ th {
 }
 
 .landing-card-visual--formatos {
-  background: linear-gradient(135deg, rgba(11,122,119,0.08) 0%, rgba(11,122,119,0.02) 100%);
+  background: linear-gradient(135deg, rgba(222, 250, 22,0.08) 0%, rgba(222, 250, 22,0.02) 100%);
 }
 
 .landing-card-visual--servicios {
-  background: linear-gradient(135deg, rgba(212,95,44,0.1) 0%, rgba(212,95,44,0.02) 100%);
+  background: linear-gradient(135deg, rgba(245, 1, 82,0.1) 0%, rgba(245, 1, 82,0.02) 100%);
 }
 
 .landing-card-emoji {
@@ -1195,7 +1197,7 @@ th {
 }
 
 .landing-card-body h2 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.4rem;
   font-weight: 700;
   margin: 0 0 10px;
@@ -1264,7 +1266,7 @@ th {
 
 /* services page hero title */
 .services-page-h1 {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 700;
   line-height: 1.15;
@@ -1339,7 +1341,7 @@ th {
 }
 
 .quiz-question-text {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   margin: 0 0 20px;
@@ -1372,13 +1374,13 @@ th {
 
 .quiz-option:hover {
   border-color: var(--accent-2);
-  background: rgba(11, 122, 119, 0.04);
+  background: rgba(222, 250, 22, 0.04);
   transform: translateY(-2px);
 }
 
 .quiz-option.selected {
   border-color: var(--accent-2);
-  background: rgba(11, 122, 119, 0.08);
+  background: rgba(222, 250, 22, 0.08);
   font-weight: 600;
 }
 
@@ -1421,7 +1423,7 @@ th {
 }
 
 .quiz-results-title {
-  font-family: "Fraunces", Georgia, serif;
+  font-family: "Barlow", "Helvetica Neue", Arial, sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   margin: 0 0 6px;
@@ -1452,7 +1454,7 @@ th {
 
 .quiz-rec-card--top {
   border-color: var(--accent-2);
-  background: rgba(11, 122, 119, 0.04);
+  background: rgba(222, 250, 22, 0.04);
 }
 
 .quiz-rec-header {
@@ -1577,4 +1579,106 @@ th {
     flex-direction: column;
     gap: 12px;
   }
+}
+
+/* ─── Ajustes de marca Emeria LAB ──────────────────────────────────── */
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.ambient {
+  opacity: 0.16;
+}
+
+.brand {
+  gap: 10px;
+  font-weight: 600;
+}
+
+.brand-logo {
+  width: 30px;
+  height: 30px;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--accent-2);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
+.eyebrow {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+}
+
+.cards-grid .line-heading {
+  grid-column: 1 / -1;
+  margin: 18px 0 2px;
+}
+
+.cards-grid .line-heading:first-child {
+  margin-top: 0;
+}
+
+.line-heading h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.line-heading p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.quiz-rec-rank {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  color: #000;
+  font-weight: 700;
+}
+
+.site-footer a {
+  color: var(--ink);
+}
+
+.site-footer a:hover {
+  color: var(--accent-2);
+}
+
+.site-footer a {
+  margin-right: 14px;
+}
+
+.service-summary-chip {
+  grid-template-columns: minmax(0, 1fr);
+  color: var(--ink);
+}
+
+.service-chip-price,
+.pill-price {
+  color: var(--accent-2);
+}
+
+.pill-price {
+  background: rgba(222, 250, 22, 0.08);
+  border-color: rgba(222, 250, 22, 0.25);
 }

@@ -1,5 +1,5 @@
 (function () {
-  const data = window.DIVULGAV_DATA;
+  const data = window.EMERIA_DATA;
 
   const state = {
     query: "",
