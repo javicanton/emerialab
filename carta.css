@@ -64,15 +64,67 @@ body {
 }
 
 .carta-stage {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100svh;
-  padding: 54px 7vw 28px;
+  padding: 54px 4vw 28px;
+}
+
+/* Cerrada, una hoja centrada. Al abrir, el libro crece hacia los dos lados
+   y la hoja derecha se corre para dejar ver la izquierda. */
+.carta-book {
+  display: flex;
+  align-items: stretch;
+  width: min(560px, 100%);
+  height: 100%;
+  margin-inline: auto;
+  transition: width 0.55s ease;
+}
+
+.carta-book.is-open {
+  width: min(980px, 100%);
+}
+
+.carta-page-left {
+  display: flex;
+  flex: 0 0 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: transparent;
+  transition: flex-basis 0.55s ease, opacity 0.4s ease;
+}
+
+.carta-book.is-open .carta-page-left {
+  flex: 0 0 38%;
+  opacity: 1;
+}
+
+.carta-book.is-open .carta-house {
+  display: none;
+}
+
+.carta-logo {
+  width: min(100%, 340px);
+  aspect-ratio: 612 / 150;
+  overflow: hidden;
+  background: transparent;
+}
+
+.carta-logo img {
+  width: 100%;
+  height: auto;
+  max-width: none;
+  margin-top: -11.4%;
 }
 
 .carta-scene {
   position: relative;
-  width: min(640px, 100%);
+  flex: 1 1 auto;
+  min-width: 0;
   height: 100%;
   perspective: 1800px;
   perspective-origin: left center;
@@ -314,8 +366,10 @@ body {
 }
 
 .carta-dish-name {
+  min-width: 0;
   font-size: clamp(1.8rem, 3vw, 2.25rem);
   line-height: 1;
+  overflow-wrap: anywhere;
 }
 
 .carta-leaders {
@@ -337,6 +391,7 @@ body {
   margin-top: 3px;
   font-size: 0.86rem;
   line-height: 1.45;
+  overflow-wrap: anywhere;
 }
 
 .carta-foot {
@@ -415,12 +470,30 @@ body {
   }
 
   .carta-dish-line {
+    flex-wrap: wrap;
     justify-content: space-between;
+  }
+
+  .carta-dish-name {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 720px) {
+  .carta-book,
+  .carta-book.is-open {
+    width: 100%;
+  }
+
+  .carta-book.is-open .carta-page-left {
+    flex-basis: 34%;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carta-leaf {
+  .carta-leaf,
+  .carta-book,
+  .carta-page-left {
     transition: none;
   }
 }

@@ -7,7 +7,7 @@
   const under = document.getElementById("cartaUnder");
   const leaf = document.getElementById("cartaLeaf");
   const back = document.getElementById("cartaBack");
-  const left = document.getElementById("cartaLeft");
+  const book = document.getElementById("cartaBook");
   const live = document.getElementById("cartaLive");
   if (!scene || !front || !under || !leaf || !data) return;
 
@@ -163,38 +163,6 @@
     `;
   }
 
-  function chosenNames() {
-    const names = [];
-    PAGES.forEach((page) => {
-      const value = state.answers[page.id];
-      if (!value || !page.options) return;
-      const option = page.options.find((item) => item.id === value);
-      if (option) names.push(option.name);
-    });
-    return names;
-  }
-
-  function leftHtml() {
-    const names = chosenNames();
-    const body = names.length
-      ? `<h3 class="carta-course">La cuenta</h3>
-         <ul class="carta-specials">${names.map((name) => `<li>${escapeHtml(name)}</li>`).join("")}</ul>`
-      : `<h3 class="carta-course">De la casa</h3>
-         <ul class="carta-specials">
-           <li><strong>Rigor.</strong> El conocimiento se contrasta antes de contarse.</li>
-           <li><strong>Oficio.</strong> Guion, imagen, sonido y diseño, en la misma cocina.</li>
-           <li><strong>Público.</strong> Cada pieza se sirve a quien tiene que recibirla.</li>
-         </ul>`;
-    return `
-      <div class="carta-sheet carta-sheet-left">
-        <p class="carta-house">Emeria <b>LAB</b></p>
-        <div class="carta-ornament" aria-hidden="true"><span></span></div>
-        ${body}
-        <p class="carta-sign">Universidad Internacional de La Rioja, UNIR TV.</p>
-      </div>
-    `;
-  }
-
   function resultBlock() {
     const picks = recommend();
     const items = picks.map(({ service }) => `
@@ -247,8 +215,8 @@
     `;
   }
 
-  function paintLeft() {
-    if (left) left.innerHTML = leftHtml();
+  function setOpen(open) {
+    if (book) book.classList.toggle("is-open", open);
   }
 
   function paint() {
@@ -256,7 +224,7 @@
     front.innerHTML = html;
     under.innerHTML = html;
     if (back) back.innerHTML = paperHtml();
-    paintLeft();
+    setOpen(state.index > 0);
     leaf.style.transform = "";
   }
 
@@ -293,6 +261,7 @@
     under.innerHTML = html;
     leaf.getAnimations().forEach((animation) => animation.cancel());
     leaf.style.transform = "rotateY(0deg)";
+    setOpen(nextIndex > 0);
   }
 
   async function turn(nextIndex) {
@@ -307,8 +276,12 @@
     state.busy = true;
     scene.classList.add("is-turning");
     const forward = nextIndex > state.index;
+    const opening = forward && state.index === 0;
     try {
-      paintLeft();
+      if (opening) {
+        setOpen(true);
+        if (!reduceMotion) await new Promise((resolve) => window.setTimeout(resolve, 560));
+      }
       back.innerHTML = paperHtml();
       if (forward) {
         under.innerHTML = pageHtml(nextIndex);

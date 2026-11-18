@@ -2210,10 +2210,19 @@ body:has(#reel) {
   padding: 0;
 }
 
-.reel #carta .carta-scene {
-  width: min(640px, 100%);
+.reel #carta .carta-book {
+  width: min(520px, 100%);
   height: 100%;
-  margin: 0 auto;
+}
+
+.reel #carta .carta-book.is-open {
+  width: min(1040px, 100%);
+}
+
+.reel #carta .carta-scene {
+  width: auto;
+  height: 100%;
+  margin: 0;
 }
 
 .reel #carta .carta-sheet {
@@ -2244,6 +2253,32 @@ body:has(#reel) {
 
   .reel #carta .carta-dish {
     padding: 4px 2px;
+  }
+
+  .reel #carta .carta-book.is-open .carta-page-left {
+    flex-basis: 24%;
+  }
+
+  .reel #carta .carta-book.is-open .carta-sheet {
+    padding: 14px 22px 10px;
+  }
+
+  .reel #carta .carta-book.is-open .carta-title {
+    font-size: 1.7rem;
+  }
+
+  .reel #carta .carta-book.is-open .carta-dish-name {
+    font-size: 1.2rem;
+  }
+
+  .reel #carta .carta-book.is-open .carta-dish-desc {
+    font-size: 0.78rem;
+    line-height: 1.3;
+  }
+
+  .reel #carta .carta-book.is-open .carta-ornament {
+    width: 70%;
+    margin: 6px auto 8px;
   }
 }
 

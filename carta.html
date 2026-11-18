@@ -7,17 +7,24 @@
   <meta name="description" content="La carta de Emeria LAB. Eliges qué te apetece y la hoja pasa hasta tu comanda.">
   <title>La carta | Emeria LAB</title>
   <link rel="icon" href="favicon.svg">
-  <link rel="stylesheet" href="carta.css?v=20261118c">
+  <link rel="stylesheet" href="carta.css?v=20261118f">
 </head>
 <body>
   <a class="carta-exit" href="index.html">Inicio</a>
 
   <main class="carta-stage">
-    <div class="carta-scene" id="cartaScene">
-      <div class="carta-under" id="cartaUnder"></div>
-      <div class="carta-leaf" id="cartaLeaf">
-        <div class="carta-face carta-face-front" id="cartaFront"></div>
-        <div class="carta-face carta-face-back" id="cartaBack" aria-hidden="true"></div>
+    <div class="carta-book" id="cartaBook">
+      <div class="carta-page-left" id="cartaLeft">
+        <div class="carta-logo">
+          <img src="assets/brand/emeria-lab-logo-transparente.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
+        </div>
+      </div>
+      <div class="carta-scene" id="cartaScene">
+        <div class="carta-under" id="cartaUnder"></div>
+        <div class="carta-leaf" id="cartaLeaf">
+          <div class="carta-face carta-face-front" id="cartaFront"></div>
+          <div class="carta-face carta-face-back" id="cartaBack" aria-hidden="true"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -25,6 +32,6 @@
   <p class="carta-live" id="cartaLive" aria-live="polite"></p>
 
   <script src="data.js?v=20261118b"></script>
-  <script src="carta.js?v=20261118c"></script>
+  <script src="carta.js?v=20261118f"></script>
 </body>
 </html>
