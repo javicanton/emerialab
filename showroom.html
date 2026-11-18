@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Showroom de Emeria LAB: documentales, conversatorios, visualizaciones y sketchnotes.">
+  <title>Showroom | Emeria LAB</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/barlow.css">
+  <link rel="stylesheet" href="emeria.css?v=20261118d">
+</head>
+<body class="showroom-page">
+  <a class="skip-link" href="#trabajos">Ir al contenido</a>
+  <header>
+    <nav class="nav" aria-label="Navegación principal">
+      <a class="nav-brand" href="index.html" aria-label="Emeria LAB, inicio">
+        <img src="assets/brand/emeria-lab-imagotipo.svg" alt="" width="30" height="30">
+        <span>Emeria LAB</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html#que-hacemos">Qué hacemos</a>
+        <a href="index.html#como">Cómo trabajamos</a>
+        <a href="index.html#servicios">Servicios</a>
+        <a href="showroom.html" aria-current="page">Showroom</a>
+        <a href="carta.html">La carta</a>
+        <a href="index.html#equipo">Equipo</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navSheet">Menú</button>
+      <a class="btn btn-lime btn-small" href="index.html#contacto">Hablemos</a>
+    </nav>
+    <div class="nav-sheet" id="navSheet" data-open="false">
+      <a href="index.html#que-hacemos">Qué hacemos</a>
+      <a href="index.html#como">Cómo trabajamos</a>
+      <a href="index.html#servicios">Servicios</a>
+      <a href="showroom.html">Showroom</a>
+      <a href="carta.html">La carta</a>
+      <a href="index.html#equipo">Equipo</a>
+      <a href="index.html#contacto">Hablemos</a>
+    </div>
+  </header>
+
+  <main id="trabajos">
+    <header class="band-head">
+      <h1 class="title">Showroom</h1>
+    </header>
+    <div class="filters" id="workFilters" role="group" aria-label="Filtrar trabajos por línea de servicio"></div>
+    <ul class="works" id="works" aria-live="polite"></ul>
+  </main>
+
+  <script src="data.js?v=20261118b"></script>
+  <script src="showroom.js?v=20261118d"></script>
+</body>
+</html>

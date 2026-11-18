@@ -1167,6 +1167,7 @@ main {
   color: var(--lime);
 }
 
+.work h2,
 .work h3 {
   margin-top: 10px;
   font-size: 1.28rem;
@@ -1721,12 +1722,12 @@ select.input option {
    Cada apartado ocupa una pantalla. La rueda hacia abajo pasa a la
    siguiente; el dedo en horizontal también. */
 
-html,
-body {
+html:has(#reel),
+body:has(#reel) {
   height: 100%;
 }
 
-body {
+body:has(#reel) {
   overflow: hidden;
 }
 
@@ -2099,19 +2100,106 @@ body {
   justify-content: center;
 }
 
-.reel > #showroom {
-  justify-content: flex-start;
+.show-head {
+  position: relative;
 }
 
-.reel #showroom .band-inner {
+.show-more {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-50%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.show-more:hover {
+  background: var(--lime);
+  color: var(--black);
+}
+
+.show-picks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.show-picks a {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 0;
+  color: inherit;
+  text-decoration: none;
+  text-align: center;
 }
 
-.reel .showroom-scroll {
-  min-height: 0;
-  flex: 1;
-  overflow: auto;
+.show-cover {
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: 22px;
+  background: #14080c;
+}
+
+.show-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.show-cover-contain img {
+  object-fit: contain;
+}
+
+.show-label {
+  margin-top: 12px;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.showroom-page main {
+  width: min(var(--wrap), calc(100% - 48px));
+  margin: 0 auto;
+  padding: calc(var(--nav-h) + 36px) 0 72px;
+}
+
+.showroom-page {
+  background:
+    radial-gradient(70% 42% at 88% 0%, rgba(222, 250, 22, 0.14), transparent 54%),
+    radial-gradient(60% 40% at 8% 12%, rgba(245, 1, 82, 0.32), transparent 52%),
+    var(--black);
+}
+
+.showroom-page .title,
+.showroom-page .filters {
+  text-align: center;
+}
+
+.showroom-page .filters {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 720px) {
+  .show-more {
+    width: 40px;
+    height: 40px;
+  }
+
+  .show-label {
+    font-size: 0.92rem;
+  }
+
+  .show-picks {
+    gap: 8px;
+  }
 }

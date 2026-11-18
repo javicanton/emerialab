@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="emeria.css?v=20261118c">
+  <link rel="stylesheet" href="emeria.css?v=20261118d">
 </head>
 <body>
   <a class="skip-link" href="#que-hacemos">Ir al contenido</a>
@@ -134,16 +134,13 @@
     <!-- 5. Showroom -->
     <section class="band" id="showroom" aria-labelledby="showroom-title">
       <div class="band-inner">
-        <header class="band-head">
+        <header class="band-head show-head">
           <h2 class="title" id="showroom-title">Showroom</h2>
+          <a class="show-more" href="showroom.html" aria-label="Ver más trabajos">
+            <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M8 4l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </header>
-        <div class="showroom-scroll">
-          <div class="filters" id="workFilters" role="group" aria-label="Filtrar trabajos por línea de servicio"></div>
-          <ul class="works" id="works" aria-live="polite"></ul>
-          <p class="works-more" id="worksMoreWrap" hidden>
-            <button class="btn btn-glass" id="worksMore" type="button">Ver más trabajos</button>
-          </p>
-        </div>
+        <ul class="show-picks" id="showPicks"></ul>
       </div>
     </section>
 
@@ -216,6 +213,6 @@
   </dialog>
 
   <script src="data.js?v=20261118b"></script>
-  <script src="home.js?v=20261118c"></script>
+  <script src="home.js?v=20261118d"></script>
 </body>
 </html>

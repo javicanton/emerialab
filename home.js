@@ -170,7 +170,7 @@
       if (equipo && equipo.open) return;
       const target = event.target && event.target.closest ? event.target : document.body;
       if (target.closest("input, textarea, select, dialog")) return;
-      const inner = target.closest(".line-panel, .showroom-scroll");
+      const inner = target.closest(".line-panel");
       if (inner && inner.scrollHeight > inner.clientHeight + 8) {
         const atTop = inner.scrollTop <= 0 && event.deltaY < 0;
         const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 2 && event.deltaY > 0;
@@ -194,7 +194,7 @@
       const dx = event.changedTouches[0].clientX - touchX;
       const dy = event.changedTouches[0].clientY - touchY;
       if (Math.abs(dy) < 48 || Math.abs(dy) < Math.abs(dx)) return;
-      const inner = event.target.closest(".line-panel, .showroom-scroll");
+      const inner = event.target.closest(".line-panel");
       if (inner && inner.scrollHeight > inner.clientHeight + 8) {
         const atTop = inner.scrollTop <= 0 && dy > 0;
         const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 2 && dy < 0;
@@ -225,6 +225,13 @@
     }
     reel.addEventListener("scroll", () => window.requestAnimationFrame(syncNext), { passive: true });
     syncNext();
+
+    const hash = location.hash.slice(1);
+    if (hash && hash !== "equipo") {
+      const panel = document.getElementById(hash);
+      const index = panel ? panels.indexOf(panel) : -1;
+      if (index >= 0) panel.scrollIntoView({ behavior: "auto", inline: "start", block: "nearest" });
+    }
 
     document.querySelectorAll("a[href^='#']").forEach((link) => {
       const id = link.getAttribute("href").slice(1);
@@ -274,6 +281,7 @@
     });
 
     const equipo = $("equipo");
+    if (location.hash === "#equipo" && equipo && equipo.showModal) equipo.showModal();
     document.querySelectorAll("a[href='#equipo']").forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
@@ -466,91 +474,37 @@
     `).join("");
   }
 
-  /* ─── Trabajos ──────────────────────────────────────────────────── */
+  /* ─── Showroom ──────────────────────────────────────────────────── */
 
-  const WORKS_PAGE = 6;
-  const worksState = { line: "todos", shown: WORKS_PAGE };
+  const SHOWCASE = [
+    { id: "san-millan", label: "Cómo encontrar un tesoro" },
+    { id: "negocio-del-odio", label: "El negocio del odio" },
+    { id: "steamgraph-cv", label: "Steamgraph" }
+  ];
 
-  function workLinkLabel(url) {
-    try {
-      const host = new URL(url).hostname.replace(/^www\./, "");
-      if (host.includes("youtube.") || host === "youtu.be") return "Ver en YouTube";
-      if (host.includes("unir.tv")) return "Ver en UNIR TV";
-      if (host.includes("vimeo.")) return "Ver en Vimeo";
-    } catch (error) {
-      /* URL relativa o no válida: etiqueta genérica. */
-    }
-    return "Ver el trabajo";
-  }
-
-  function renderWorkFilters() {
-    const used = data.lines.filter((line) => data.works.some((work) => work.line === line.id));
-    const options = [{ id: "todos", short: "Todos" }].concat(used);
-    $("workFilters").hidden = used.length < 2;
-    $("workFilters").innerHTML = options.map((option) => `
-      <button class="filter" type="button" data-line="${escapeHtml(option.id)}"
-        aria-pressed="${option.id === worksState.line}">${escapeHtml(option.short)}</button>
-    `).join("");
-  }
-
-  function renderWorks() {
-    const list = data.works.filter((work) => worksState.line === "todos" || work.line === worksState.line);
-    const visible = list.slice(0, worksState.shown);
-
-    if (!list.length) {
-      $("works").innerHTML = `<li class="glass works-empty">Todavía no hay trabajos publicados en esta línea.</li>`;
-    } else {
-      $("works").innerHTML = visible.map((work) => {
-        const line = lineById(work.line);
-        const cover = work.thumb
-          ? `<img src="${escapeHtml(work.thumb)}" alt="" loading="lazy" data-fallback="${escapeHtml(work.type)}">`
-          : `<span class="work-cover-brand">${escapeHtml(work.type)}</span>`;
-        return `
-          <li class="glass work">
-            <div class="work-cover${work.fit === "contain" ? " work-cover-contain" : ""}">${cover}</div>
-            <div class="work-body">
-              <p class="work-meta">
-                <span>${escapeHtml(work.type)}</span>
-                <span>${escapeHtml(work.year)}</span>
-                ${work.duration ? `<span>${escapeHtml(work.duration)}</span>` : ""}
-              </p>
-              <h3>${escapeHtml(work.title)}</h3>
-              <p>${escapeHtml(work.summary)}</p>
-              ${work.url ? `<a class="text-link" href="${escapeHtml(work.url)}" target="_blank" rel="noopener">${workLinkLabel(work.url)}<span class="sr-only">: ${escapeHtml(work.title)} (se abre en otra pestaña)</span></a>` : ""}
-              ${line ? `<span class="sr-only">Línea: ${escapeHtml(line.name)}</span>` : ""}
-            </div>
-          </li>
-        `;
-      }).join("");
-
-      /* Si la miniatura no carga, se sustituye por la carátula de marca. */
-      $("works").querySelectorAll("img[data-fallback]").forEach((img) => {
-        img.addEventListener("error", () => {
-          const cover = document.createElement("span");
-          cover.className = "work-cover-brand";
-          cover.textContent = img.dataset.fallback;
-          img.replaceWith(cover);
-        }, { once: true });
-      });
-    }
-
-    $("worksMoreWrap").hidden = list.length <= worksState.shown;
-  }
-
-  function bindWorks() {
-    $("workFilters").addEventListener("click", (event) => {
-      const button = event.target.closest(".filter");
-      if (!button) return;
-      worksState.line = button.dataset.line;
-      worksState.shown = WORKS_PAGE;
-      renderWorkFilters();
-      renderWorks();
-    });
-
-    $("worksMore").addEventListener("click", () => {
-      worksState.shown += WORKS_PAGE;
-      renderWorks();
-    });
+  function renderShowcase() {
+    const list = $("showPicks");
+    if (!list) return;
+    list.innerHTML = SHOWCASE.map((item) => {
+      const work = data.works.find((entry) => entry.id === item.id);
+      if (!work) return "";
+      const cover = work.thumb
+        ? `<img src="${escapeHtml(work.thumb)}" alt="" loading="lazy">`
+        : `<span class="work-cover-brand">${escapeHtml(work.type)}</span>`;
+      const inner = `
+        <span class="show-cover${work.fit === "contain" ? " show-cover-contain" : ""}">${cover}</span>
+        <span class="show-label">${escapeHtml(item.label)}</span>
+      `;
+      if (!work.url) return `<li>${inner}</li>`;
+      return `
+        <li>
+          <a href="${escapeHtml(work.url)}" target="_blank" rel="noopener">
+            ${inner}
+            <span class="sr-only"> (se abre en otra pestaña)</span>
+          </a>
+        </li>
+      `;
+    }).join("");
   }
 
   /* ─── Equipo ────────────────────────────────────────────────────── */
@@ -694,9 +648,7 @@
   renderLinePanel();
   bindServices();
   renderModes();
-  renderWorkFilters();
-  renderWorks();
-  bindWorks();
+  renderShowcase();
   renderTeam();
   renderContactOptions();
   bindContact();
