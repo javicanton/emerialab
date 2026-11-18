@@ -671,7 +671,7 @@ main {
 
 .about-note {
   margin-top: 26px;
-  max-width: 30em;
+  max-width: 44em;
   color: var(--text-soft);
 }
 
@@ -679,6 +679,14 @@ main {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
+}
+
+.field-icon {
+  display: block;
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 12px;
+  color: var(--lime);
 }
 
 .field-card {
@@ -1777,7 +1785,9 @@ body:has(#reel) {
 }
 
 .reel .about-note {
-  margin-top: 12px;
+  margin-top: 16px;
+  max-width: 44em;
+  line-height: 1.5;
 }
 
 .reel .field-card {
@@ -2038,8 +2048,15 @@ body:has(#reel) {
   }
 
   .reel .about-note {
-    margin-top: 8px;
-    font-size: 0.92rem;
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+  }
+
+  .reel .field-icon {
+    width: 22px;
+    height: 22px;
+    margin-bottom: 6px;
   }
 
   .reel .fields {

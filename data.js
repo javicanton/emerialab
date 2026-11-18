@@ -1315,7 +1315,7 @@ window.EMERIA_DATA = {
       line: "audiovisual",
       duration: "59 min",
       summary: "Especialistas de universidades españolas y europeas explican las dinámicas técnicas y económicas de la desinformación y los discursos de odio, a partir de la jornada «El negocio del odio: descubre Hatemedia».",
-      url: "https://www.youtube.com/watch?v=9yf0HjqN_Xo",
+      url: "https://www.unir.tv/content/horizonte-ia/el-negocio-del-odio-quien-esta-detras/play",
       thumb: "https://i.ytimg.com/vi/9yf0HjqN_Xo/hqdefault.jpg"
     },
     {
