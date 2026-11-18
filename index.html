@@ -13,7 +13,8 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="emeria.css?v=20261118d">
+  <link rel="stylesheet" href="carta.css?v=20261118e">
+  <link rel="stylesheet" href="emeria.css?v=20261118e">
 </head>
 <body>
   <a class="skip-link" href="#que-hacemos">Ir al contenido</a>
@@ -45,7 +46,7 @@
         <a href="#como">Cómo trabajamos</a>
         <a href="#servicios">Servicios</a>
         <a href="#showroom">Showroom</a>
-        <a href="carta.html">La carta</a>
+        <a href="#carta">La carta</a>
         <a href="#equipo">Equipo</a>
       </div>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navSheet">Menú</button>
@@ -56,7 +57,7 @@
       <a href="#como">Cómo trabajamos</a>
       <a href="#servicios">Servicios</a>
       <a href="#showroom">Showroom</a>
-      <a href="carta.html">La carta</a>
+      <a href="#carta">La carta</a>
       <a href="#equipo">Equipo</a>
       <a href="#contacto">Hablemos</a>
     </div>
@@ -144,7 +145,22 @@
       </div>
     </section>
 
-    <!-- 6. Contacto -->
+    <!-- 6. La carta -->
+    <section class="band" id="carta" aria-labelledby="carta-title">
+      <h2 class="sr-only" id="carta-title">La carta</h2>
+      <div class="carta-stage">
+        <div class="carta-scene" id="cartaScene">
+          <div class="carta-under" id="cartaUnder"></div>
+          <div class="carta-leaf" id="cartaLeaf">
+            <div class="carta-face carta-face-front" id="cartaFront"></div>
+            <div class="carta-face carta-face-back" id="cartaBack" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+      <p class="carta-live" id="cartaLive" aria-live="polite"></p>
+    </section>
+
+    <!-- 7. Contacto -->
     <section class="band" id="contacto" aria-labelledby="contacto-title">
       <div class="band-inner contact-grid">
         <div>
@@ -214,5 +230,6 @@
 
   <script src="data.js?v=20261118b"></script>
   <script src="home.js?v=20261118d"></script>
+  <script src="carta.js?v=20261118e"></script>
 </body>
 </html>

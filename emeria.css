@@ -2189,6 +2189,64 @@ body:has(#reel) {
   justify-content: center;
 }
 
+/* La carta, dentro del recorrido. La hoja ocupa la pantalla. */
+.reel > #carta {
+  justify-content: stretch;
+  padding-top: calc(var(--nav-h) + 12px);
+  padding-bottom: 78px;
+}
+
+.reel #carta .carta-sheet,
+.reel #carta .carta-face,
+.reel #carta .carta-under {
+  color: #1a120c;
+}
+
+.reel #carta .carta-stage {
+  flex: 1;
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+}
+
+.reel #carta .carta-scene {
+  width: min(640px, 100%);
+  height: 100%;
+  margin: 0 auto;
+}
+
+.reel #carta .carta-sheet {
+  padding: 28px 36px 18px;
+}
+
+.reel #carta .carta-title {
+  font-size: clamp(2.6rem, 5vw, 3.6rem);
+}
+
+@media (max-width: 720px) {
+  .reel > #carta {
+    padding-top: calc(var(--nav-h) + 8px);
+    padding-bottom: 72px;
+  }
+
+  .reel #carta .carta-sheet {
+    padding: 18px 16px 12px;
+  }
+
+  .reel #carta .carta-title {
+    font-size: 2.35rem;
+  }
+
+  .reel #carta .carta-dish-name {
+    font-size: 1.55rem;
+  }
+
+  .reel #carta .carta-dish {
+    padding: 4px 2px;
+  }
+}
+
 @media (max-width: 720px) {
   .show-more {
     width: 40px;
