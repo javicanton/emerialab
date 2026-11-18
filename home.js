@@ -345,8 +345,9 @@
       return `
         <button class="line-tab" type="button" role="tab" id="tab-${escapeHtml(line.id)}"
           aria-selected="${selected}" aria-controls="linePanel" tabindex="${selected ? "0" : "-1"}"
-          data-line="${escapeHtml(line.id)}">
+          aria-label="${escapeHtml(line.name)}" data-line="${escapeHtml(line.id)}">
           <span class="line-tab-name">${escapeHtml(line.name)}</span>
+          <span class="line-tab-short">${escapeHtml(line.short)}</span>
           <span class="line-tab-summary">${escapeHtml(line.summary)}</span>
         </button>
       `;
