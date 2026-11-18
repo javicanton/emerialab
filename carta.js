@@ -63,7 +63,7 @@
         { id: "mirar", name: "Plato único", price: "desde 75 €", desc: "Un dato o una idea, claros de un vistazo. Visualización, infografía o cómic científico." },
         { id: "historia", name: "Menú Experiencia", price: "desde 800 €", desc: "Algo que se ve o se escucha con calma. Podcast o documental." },
         { id: "proyecto", name: "Menú degustación", price: "A medida", desc: "La comunicación entera, de la propuesta al cierre." },
-        { id: "sorpresa", name: "La elección del chef", price: "A medida", desc: "Todavía no sé qué pedir. Empezamos por una evaluación." }
+        { id: "sorpresa", name: "La elección del chef", price: "150 €", desc: "Todavía no sé qué pedir. Empezamos por una evaluación." }
       ]
     },
     {

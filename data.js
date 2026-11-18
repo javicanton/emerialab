@@ -1186,10 +1186,10 @@ window.EMERIA_DATA = {
         "Producción de la pieza cuando el encargo ya está definido",
         "Evaluación de qué necesita un proyecto o un artículo",
         "Propuesta de formato y de alcance",
-        "El precio de la pieza se cierra según sea simple o avanzada"
+        "Si se produce la pieza, el precio se cierra según sea simple o avanzada"
       ],
-      priceFrom: "Presupuesto a medida",
-      clientPriceDetail: "",
+      priceFrom: "Evaluación 150 €",
+      clientPriceDetail: "La evaluación de un proyecto o un artículo. La pieza, si se encarga, sale desde 75 € si es simple y desde 500 € si es avanzada.",
       embed: {
         src: "https://javicanton.github.io/steamgraph-cv/?embed=1",
         title: "Steamgraph de un CV académico"
@@ -1226,7 +1226,7 @@ window.EMERIA_DATA = {
         "Versión digital lista para compartir",
         "Adaptación al uso (clase, jornada o web)"
       ],
-      priceFrom: "Presupuesto a medida",
+      priceFrom: "Desde 60 €",
       clientPriceDetail: "",
       gallery: [
         { src: "assets/works/sketchnote-letzebuerg.jpg", alt: "Sketchnote con el mapa cultural de la ciudad de Luxemburgo" },
