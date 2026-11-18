@@ -86,35 +86,151 @@
     return [last[1], last[2]];
   }
 
-  function bindScrollLight() {
+  function applyLight(p) {
     const root = document.documentElement;
+    const clamped = Math.min(1, Math.max(0, p));
+    const [x, y] = lightAt(clamped);
+    root.style.setProperty("--lx", x.toFixed(1) + "%");
+    root.style.setProperty("--ly", y.toFixed(1) + "%");
+    if (!reduceMotion) root.style.setProperty("--drift", clamped.toFixed(3));
+    const gradient = document.getElementById("rib-gradient");
+    if (gradient) {
+      const x1 = 520 - clamped * 1400;
+      gradient.setAttribute("x1", x1.toFixed(0));
+      gradient.setAttribute("x2", (x1 + 1600).toFixed(0));
+    }
+  }
+
+  function reelProgress() {
+    const reel = $("reel");
+    if (!reel) return 0;
+    const max = Math.max(1, reel.scrollWidth - reel.clientWidth);
+    return Math.min(1, Math.max(0, reel.scrollLeft / max));
+  }
+
+  function bindScrollLight() {
+    const reel = $("reel");
     let ticking = false;
 
     function update() {
       ticking = false;
-      const max = Math.max(1, root.scrollHeight - window.innerHeight);
-      const p = Math.min(1, Math.max(0, window.scrollY / max));
-      const [x, y] = lightAt(p);
-      root.style.setProperty("--lx", x.toFixed(1) + "%");
-      root.style.setProperty("--ly", y.toFixed(1) + "%");
-      if (!reduceMotion) root.style.setProperty("--drift", p.toFixed(3));
-      /* El degradado magenta-lima se desplaza: al bajar, la portada cambia de color. */
-      const gradient = document.getElementById("rib-gradient");
-      if (gradient) {
-        const x1 = 520 - p * 1400;
-        gradient.setAttribute("x1", x1.toFixed(0));
-        gradient.setAttribute("x2", (x1 + 1600).toFixed(0));
-      }
+      applyLight(reelProgress());
     }
 
-    window.addEventListener("scroll", () => {
-      if (!ticking) {
-        ticking = true;
-        window.requestAnimationFrame(update);
-      }
-    }, { passive: true });
+    if (reel) {
+      reel.addEventListener("scroll", () => {
+        if (!ticking) {
+          ticking = true;
+          window.requestAnimationFrame(update);
+        }
+      }, { passive: true });
+    }
     window.addEventListener("resize", update);
-    update();
+
+    if (reduceMotion) {
+      update();
+      return;
+    }
+
+    /* En la primera pantalla la luz se mueve sola. Al pasar de pantalla, manda el scroll. */
+    const started = performance.now();
+    function ambient(now) {
+      if (reelProgress() > 0.02) applyLight(reelProgress());
+      else {
+        const t = ((now - started) % 14000) / 14000;
+        const wave = 0.5 - 0.5 * Math.cos(t * Math.PI * 2);
+        applyLight(wave * 0.62);
+      }
+      window.requestAnimationFrame(ambient);
+    }
+    window.requestAnimationFrame(ambient);
+  }
+
+  function bindReel() {
+    const reel = $("reel");
+    const nextButton = $("reelNext");
+    if (!reel) return;
+    const panels = Array.from(reel.querySelectorAll(":scope > .band"));
+    let lockUntil = 0;
+
+    function indexNow() {
+      const width = reel.clientWidth || 1;
+      return Math.round(reel.scrollLeft / width);
+    }
+
+    function go(index) {
+      const next = Math.max(0, Math.min(panels.length - 1, index));
+      const behavior = reduceMotion ? "auto" : "smooth";
+      panels[next].scrollIntoView({ behavior, inline: "start", block: "nearest" });
+      if (nextButton) nextButton.hidden = next >= panels.length - 1;
+    }
+
+    window.addEventListener("wheel", (event) => {
+      const equipo = $("equipo");
+      if (equipo && equipo.open) return;
+      const target = event.target && event.target.closest ? event.target : document.body;
+      if (target.closest("input, textarea, select, dialog")) return;
+      const inner = target.closest(".line-panel");
+      if (inner && inner.scrollHeight > inner.clientHeight + 8) {
+        const atTop = inner.scrollTop <= 0 && event.deltaY < 0;
+        const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 2 && event.deltaY > 0;
+        if (!atTop && !atBottom) return;
+      }
+      if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+      event.preventDefault();
+      const now = performance.now();
+      if (now < lockUntil || Math.abs(event.deltaY) < 12) return;
+      lockUntil = now + 700;
+      go(indexNow() + (event.deltaY > 0 ? 1 : -1));
+    }, { passive: false });
+
+    let touchX = 0;
+    let touchY = 0;
+    reel.addEventListener("touchstart", (event) => {
+      touchX = event.touches[0].clientX;
+      touchY = event.touches[0].clientY;
+    }, { passive: true });
+    reel.addEventListener("touchend", (event) => {
+      const dx = event.changedTouches[0].clientX - touchX;
+      const dy = event.changedTouches[0].clientY - touchY;
+      if (Math.abs(dy) < 48 || Math.abs(dy) < Math.abs(dx)) return;
+      go(indexNow() + (dy < 0 ? 1 : -1));
+    }, { passive: true });
+
+    document.addEventListener("keydown", (event) => {
+      const typing = event.target.closest("input, textarea, select, dialog");
+      if (typing) return;
+      if (event.key === "ArrowDown" || event.key === "PageDown") {
+        event.preventDefault();
+        go(indexNow() + 1);
+      }
+      if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        go(indexNow() - 1);
+      }
+    });
+
+    function syncNext() {
+      if (nextButton) nextButton.hidden = indexNow() >= panels.length - 1;
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener("click", () => go(indexNow() + 1));
+    }
+    reel.addEventListener("scroll", () => window.requestAnimationFrame(syncNext), { passive: true });
+    syncNext();
+
+    document.querySelectorAll("a[href^='#']").forEach((link) => {
+      const id = link.getAttribute("href").slice(1);
+      if (id === "equipo") return;
+      const panel = document.getElementById(id);
+      if (!panel || !reel.contains(panel)) return;
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const index = panels.indexOf(panel);
+        if (index >= 0) go(index);
+      });
+    });
   }
 
   /* Brillo del cristal bajo el puntero. */
@@ -151,12 +267,25 @@
       }
     });
 
+    const equipo = $("equipo");
+    document.querySelectorAll("a[href='#equipo']").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        setOpen(false);
+        if (equipo && equipo.showModal) equipo.showModal();
+      });
+    });
+    document.querySelectorAll("[data-close-equipo]").forEach((button) => {
+      button.addEventListener("click", () => equipo && equipo.close());
+    });
+
+    const reel = $("reel");
     const links = Array.from(document.querySelectorAll("#navLinks a"));
     const targets = links
       .map((link) => document.querySelector(link.getAttribute("href")))
-      .filter(Boolean);
+      .filter((target) => target && reel && reel.contains(target));
 
-    if (!("IntersectionObserver" in window)) return;
+    if (!("IntersectionObserver" in window) || !reel) return;
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -167,19 +296,9 @@
           else link.removeAttribute("aria-current");
         });
       });
-    }, { rootMargin: "-45% 0px -50% 0px" });
+    }, { root: reel, threshold: 0.6 });
 
     targets.forEach((target) => observer.observe(target));
-
-    /* Fuera de los apartados enlazados no se marca ninguno. */
-    const others = Array.from(document.querySelectorAll("main > section"))
-      .filter((section) => !targets.includes(section));
-    const clearObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) links.forEach((link) => link.removeAttribute("aria-current"));
-      });
-    }, { rootMargin: "-45% 0px -50% 0px" });
-    others.forEach((section) => clearObserver.observe(section));
   }
 
   /* ─── Índice del hero ───────────────────────────────────────────── */
@@ -558,17 +677,13 @@
 
   drawLight();
   bindScrollLight();
+  bindReel();
   bindGlassGlow();
   bindNav();
-  renderHeroIndex();
   renderLineTabs();
   renderLinePanel();
   bindServices();
   renderModes();
-  renderMethod();
-  renderWorkFilters();
-  renderWorks();
-  bindWorks();
   renderTeam();
   renderContactOptions();
   bindContact();

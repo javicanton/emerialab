@@ -13,10 +13,10 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="emeria.css?v=20261116e">
+  <link rel="stylesheet" href="emeria.css?v=20261118a">
 </head>
 <body>
-  <a class="skip-link" href="#servicios">Ir a los servicios</a>
+  <a class="skip-link" href="#que-hacemos">Ir al contenido</a>
 
   <!-- Luz de fondo: las bandas las dibuja home.js -->
   <div class="light" aria-hidden="true">
@@ -41,9 +41,11 @@
         <span>Emeria LAB</span>
       </a>
       <div class="nav-links" id="navLinks">
-        <a href="#servicios">Servicios</a>
+        <a href="#que-hacemos">Qué hacemos</a>
         <a href="#como">Cómo trabajamos</a>
-        <a href="#trabajos">Trabajos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#showroom">Showroom</a>
+        <a href="#carta">La carta</a>
         <a href="#equipo">Equipo</a>
       </div>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navSheet">Menú</button>
@@ -51,16 +53,16 @@
     </nav>
     <div class="nav-sheet" id="navSheet" data-open="false">
       <a href="#que-hacemos">Qué hacemos</a>
-      <a href="#servicios">Servicios</a>
       <a href="#como">Cómo trabajamos</a>
-      <a href="#metodo">Método</a>
-      <a href="#trabajos">Trabajos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#showroom">Showroom</a>
+      <a href="#carta">La carta</a>
       <a href="#equipo">Equipo</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#contacto">Hablemos</a>
     </div>
   </header>
 
-  <main>
+  <main class="reel" id="reel">
     <!-- 1. Inicio -->
     <section class="band hero" id="inicio">
       <div class="band-inner hero-stack">
@@ -70,12 +72,7 @@
           </div>
           <h1 class="display">Laboratorio de innovación <b>audiovisual</b></h1>
           <p class="lead">Convertimos investigación e ideas en contenidos y experiencias de comunicación para universidades, centros de investigación, administraciones e instituciones culturales.</p>
-          <div class="hero-actions">
-            <a class="btn btn-lime" href="#servicios">¿Qué podemos hacer por ti?</a>
-            <a class="btn btn-glass" href="#contacto">Hablemos</a>
-          </div>
         </div>
-        <nav class="hero-lines" id="heroIndex" aria-label="Líneas de servicio"></nav>
       </div>
     </section>
 
@@ -108,103 +105,80 @@
       </div>
     </section>
 
-    <!-- 3. Servicios -->
+    <!-- 3. Tres formas -->
+    <section class="band" id="como" aria-labelledby="como-title">
+      <div class="band-inner">
+        <header class="band-head">
+          <h2 class="title" id="como-title">Tres formas <b>de trabajar contigo</b></h2>
+        </header>
+        <ul class="modes" id="modes"></ul>
+      </div>
+    </section>
+
+    <!-- 4. Cinco líneas -->
     <section class="band" id="servicios" aria-labelledby="servicios-title">
       <div class="band-inner">
         <header class="band-head">
           <h2 class="title" id="servicios-title">Cinco líneas <b>de servicio</b></h2>
-          <p class="lead">Elige una línea para ver qué incluye. Los precios son orientativos y se ajustan al alcance de cada proyecto.</p>
         </header>
         <div class="services">
           <div class="line-tabs" id="lineTabs" role="tablist" aria-label="Líneas de servicio"></div>
           <div class="glass line-panel" id="linePanel" role="tabpanel" tabindex="0"></div>
         </div>
         <p class="services-more">
-          <a class="text-link" href="servicios.html">Ver el catálogo completo</a>
-          <a class="text-link" href="servicios.html#carta">No sé qué necesito: abrir la carta</a>
+          <a class="text-link" href="servicios.html">Catálogo completo</a>
         </p>
       </div>
     </section>
 
-    <!-- 4. Cómo trabajamos contigo -->
-    <section class="band" id="como" aria-labelledby="como-title">
+    <!-- 5. Showroom -->
+    <section class="band" id="showroom" aria-labelledby="showroom-title">
       <div class="band-inner">
         <header class="band-head">
-          <h2 class="title" id="como-title">Tres formas <b>de trabajar contigo</b></h2>
-          <p class="lead">Del encargo puntual a la producción de todo el año. Lo que cambia es el alcance, y el equipo es el mismo.</p>
+          <h2 class="title" id="showroom-title">Showroom</h2>
         </header>
-        <ul class="modes" id="modes"></ul>
-        <div class="audiences">
-          <div class="audience">
-            <h3>Si eres de UNIR</h3>
-            <p>Trabajamos con grupos de investigación, proyectos y unidades de la universidad. El encargo se canaliza a través de la Oficina de Transferencia de Conocimiento (OTC).</p>
-          </div>
-          <div class="audience">
-            <h3>Si vienes de otra entidad</h3>
-            <p>Universidades, centros de investigación, administraciones, instituciones culturales y empresas. Te preparamos una propuesta con alcance, plazos y presupuesto.</p>
-          </div>
+        <ul class="showroom">
+          <li>
+            <a href="https://javicanton.github.io/steamgraph-cv/" target="_blank" rel="noopener">
+              <img src="assets/works/steamgraph-cv.jpg" alt="Steamgraph de un CV académico, de 2006 a hoy" width="1268" height="614">
+              <p>Steamgraph</p>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.unir.tv/content/patrimonio-y-cultura/como-encontrar-un-tesoro-patrimonio-de-san-millan-de-la-cogolla" target="_blank" rel="noopener">
+              <img src="assets/works/como-encontrar-un-tesoro.jpg" alt="Documental Cómo encontrar un tesoro, sobre el patrimonio de San Millán de la Cogolla" width="1198" height="673">
+              <p>Cómo encontrar un tesoro</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. La carta -->
+    <section class="band" id="carta" aria-labelledby="carta-title">
+      <div class="band-inner menu-screen">
+        <h2 class="sr-only" id="carta-title">La carta</h2>
+        <div class="menu-card">
+          <p class="menu-house">Emeria <b>LAB</b></p>
+          <p class="menu-question">¿Qué te apetece <b>comer?</b></p>
+          <ul>
+            <li><a href="servicios.html#carta"><span>Picoteo</span><span>desde 60 €</span></a></li>
+            <li><a href="servicios.html#carta"><span>Plato único</span><span>desde 75 €</span></a></li>
+            <li><a href="servicios.html#carta"><span>Menú Experiencia</span><span>desde 800 €</span></a></li>
+            <li><a href="servicios.html#carta"><span>Menú degustación</span><span>A medida</span></a></li>
+            <li><a href="servicios.html#carta"><span>La elección del chef</span><span>A medida</span></a></li>
+          </ul>
+          <a class="menu-open" href="servicios.html#carta">Abrir la carta</a>
         </div>
       </div>
     </section>
 
-    <!-- 5. Método -->
-    <section class="band" id="metodo" aria-labelledby="metodo-title">
-      <div class="band-inner">
-        <header class="band-head">
-          <h2 class="title" id="metodo-title">Un método <b>en seis fases</b></h2>
-          <p class="lead">Cada fase termina con un entregable que validas antes de pasar a la siguiente.</p>
-        </header>
-        <ol class="glass method" id="method"></ol>
-      </div>
-    </section>
-
-    <!-- 6. Trabajos -->
-    <section class="band" id="trabajos" aria-labelledby="trabajos-title">
-      <div class="band-inner">
-        <header class="band-head">
-          <h2 class="title" id="trabajos-title">Trabajos <b>del equipo</b></h2>
-        </header>
-        <div class="filters" id="workFilters" role="group" aria-label="Filtrar trabajos por línea de servicio"></div>
-        <ul class="works" id="works" aria-live="polite"></ul>
-        <p class="works-more" id="worksMoreWrap" hidden>
-          <button class="btn btn-glass" id="worksMore" type="button">Ver más trabajos</button>
-        </p>
-      </div>
-    </section>
-
-    <!-- 7. Equipo -->
-    <section class="band" id="equipo" aria-labelledby="equipo-title">
-      <div class="band-inner">
-        <header class="band-head">
-          <h2 class="title" id="equipo-title">Quién está <b>detrás</b></h2>
-          <p class="lead">Un equipo de comunicación, investigación y producción audiovisual, organizado en cuatro áreas que se coordinan en cada encargo.</p>
-        </header>
-        <div class="team-grid">
-          <div>
-            <ul class="people" id="people"></ul>
-            <p class="team-note">Universidad Internacional de La Rioja, UNIR TV.</p>
-          </div>
-          <ul class="glass areas" id="areas"></ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- 8. Contacto -->
+    <!-- 7. Contacto -->
     <section class="band" id="contacto" aria-labelledby="contacto-title">
       <div class="band-inner contact-grid">
         <div>
-          <h2 class="title" id="contacto-title">Cuéntanos <b>tu proyecto</b></h2>
-          <p class="lead">Con unas líneas nos basta para empezar. Te respondemos por correo con los siguientes pasos.</p>
-          <div class="contact-paths">
-            <div>
-              <h3>¿Estás preparando una propuesta de proyecto?</h3>
-              <p>Escríbenos cuanto antes: la comunicación se define mejor mientras se redacta la propuesta.</p>
-            </div>
-            <div>
-              <h3>¿Todavía no sabes qué necesitas?</h3>
-              <p>Abre <a class="text-link" href="servicios.html#carta">la carta</a> y dinos qué te apetece comer.</p>
-            </div>
-          </div>
+          <h2 class="title" id="contacto-title">Hablemos</h2>
+          <p class="lead">Con unas líneas nos basta para empezar.</p>
         </div>
 
         <form class="glass contact-form" id="contactForm" novalidate>
@@ -248,39 +222,26 @@
             <p class="form-status" id="contactStatus" role="status" aria-live="polite"></p>
           </div>
         </form>
+        <p class="contact-legal">© <span id="year">2026</span> Emeria LAB · UNIR TV · <a href="servicios.html">Catálogo</a> · <a href="formatos.html">Formatos</a></p>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <img class="footer-logo" src="assets/brand/emeria-lab-logo-negativo.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto" loading="lazy">
-        <p>Laboratorio de innovación audiovisual. Universidad Internacional de La Rioja, UNIR TV.</p>
-      </div>
-      <nav aria-label="Emeria LAB">
-        <h2>Emeria LAB</h2>
-        <ul>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#trabajos">Trabajos</a></li>
-          <li><a href="#equipo">Equipo</a></li>
-          <li><a href="#contacto">Contacto</a></li>
-        </ul>
-      </nav>
-      <nav aria-label="Recursos">
-        <h2>Recursos</h2>
-        <ul>
-          <li><a href="servicios.html">Catálogo completo</a></li>
-          <li><a href="servicios.html#carta">La carta</a></li>
-          <li><a href="servicios.html#diagnostico">Diagnóstico</a></li>
-          <li><a href="formatos.html">Biblia de formatos</a></li>
-        </ul>
-      </nav>
-    </div>
-    <p class="footer-legal">© <span id="year">2026</span> Emeria LAB</p>
-  </footer>
+  <button class="reel-next" id="reelNext" type="button" aria-label="Siguiente pantalla">
+    <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M4 8l7 7 7-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
 
-  <script src="data.js?v=20261116b"></script>
-  <script src="home.js?v=20261116e"></script>
+  <dialog class="equipo-dialog" id="equipo" aria-labelledby="equipo-title">
+    <div class="equipo-dialog-bar">
+      <h2 class="title" id="equipo-title">Quién está <b>detrás</b></h2>
+      <button type="button" class="equipo-close" data-close-equipo>Cerrar</button>
+    </div>
+    <ul class="people" id="people"></ul>
+    <p class="team-note">Universidad Internacional de La Rioja, UNIR TV.</p>
+    <ul class="glass areas" id="areas"></ul>
+  </dialog>
+
+  <script src="data.js?v=20261118a"></script>
+  <script src="home.js?v=20261118a"></script>
 </body>
 </html>

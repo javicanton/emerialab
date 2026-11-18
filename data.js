@@ -1305,7 +1305,7 @@ window.EMERIA_DATA = {
       duration: "22 min",
       summary: "La recuperación y conservación del patrimonio bibliográfico y artístico de los monasterios de San Millán de la Cogolla, Patrimonio Mundial de la UNESCO y cuna del español escrito.",
       url: "https://www.unir.tv/content/patrimonio-y-cultura/como-encontrar-un-tesoro-patrimonio-de-san-millan-de-la-cogolla",
-      thumb: ""
+      thumb: "assets/works/como-encontrar-un-tesoro.jpg"
     },
     {
       id: "negocio-del-odio",
@@ -1337,7 +1337,8 @@ window.EMERIA_DATA = {
       line: "datos",
       summary: "Ejemplo de visualización a demanda. La trayectoria de Javi Cantón-Correa desde 2005 (investigación, docencia, práctica y formación) en un gráfico interactivo. Las anchuras son una estimación personal.",
       url: "https://javicanton.github.io/steamgraph-cv/",
-      thumb: ""
+      thumb: "assets/works/steamgraph-cv.jpg",
+      fit: "contain"
     },
     {
       id: "sketchnote-letzebuerg",

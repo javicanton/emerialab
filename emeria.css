@@ -228,7 +228,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 6px;
-  width: min(calc(100% - 24px), 920px);
+  width: min(calc(100% - 24px), 1180px);
   padding: 8px 8px 8px 14px;
   border-radius: var(--r-pill);
   background: rgba(20, 20, 20, 0.55);
@@ -265,10 +265,10 @@ textarea {
 
 .nav-links a {
   position: relative;
-  padding: 9px 13px;
+  padding: 9px 11px;
   border-radius: var(--r-pill);
   color: var(--text-soft);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.2s ease, background-color 0.2s ease;
@@ -1710,5 +1710,363 @@ select.input option {
 
   .light svg {
     transform: rotate(-6deg);
+  }
+
+  .reel {
+    scroll-behavior: auto;
+  }
+}
+
+/* ─── Recorrido horizontal ───────────────────────────────────────────
+   Cada apartado ocupa una pantalla. La rueda hacia abajo pasa a la
+   siguiente; el dedo en horizontal también. */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+}
+
+.reel {
+  display: flex;
+  height: 100svh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.reel::-webkit-scrollbar {
+  display: none;
+}
+
+.reel > .band,
+.reel > .band.hero {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.reel .band-head {
+  margin-bottom: 18px;
+}
+
+.reel .about-grid {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  align-content: center;
+}
+
+.reel .about-statement {
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+}
+
+.reel .about-note {
+  margin-top: 12px;
+}
+
+.reel .field-card {
+  padding: 16px 18px 18px;
+}
+
+.reel .line-tab[aria-selected="true"] .line-tab-summary,
+.reel .service-subtitle,
+.reel .line-foot,
+.reel .line-summary-mobile {
+  display: none;
+}
+
+.reel .service-toggle {
+  padding: 12px 14px;
+}
+
+.reel .service-price,
+.reel .service-chevron {
+  grid-row: 1;
+}
+
+.reel .line-panel {
+  max-height: calc(100svh - 240px);
+  overflow: auto;
+}
+
+.reel .contact-form {
+  gap: 10px;
+  padding: 18px 20px;
+}
+
+.reel textarea.input {
+  min-height: 84px;
+  resize: none;
+}
+
+.reel #contacto .lead {
+  margin-top: 10px;
+}
+
+.reel-next {
+  position: fixed;
+  left: 50%;
+  bottom: 18px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transform: translateX(-50%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+
+.reel-next[hidden] {
+  display: none;
+}
+
+.showroom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  align-items: start;
+}
+
+.showroom a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.showroom img {
+  width: 100%;
+  height: min(52vh, 480px);
+  object-fit: contain;
+  background: #14080c;
+  border-radius: 22px;
+}
+
+.showroom p {
+  margin-top: 12px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.menu-screen {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
+.menu-card {
+  width: min(520px, 100%);
+  padding: 28px 32px 22px;
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 80% at 50% 0%, rgba(255, 252, 245, 0.7), transparent 42%),
+    linear-gradient(180deg, #f7f1e6 0%, #f3eadb 100%);
+  color: #1a120c;
+  box-shadow: 0 28px 40px rgba(0, 0, 0, 0.35);
+}
+
+.menu-house {
+  margin: 0;
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+.menu-house b {
+  font-weight: 700;
+}
+
+.menu-question {
+  margin: 10px 0 16px;
+  text-align: center;
+  font-size: clamp(1.6rem, 3vw, 2.15rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.menu-question b {
+  font-weight: 700;
+}
+
+.menu-card ul {
+  margin: 0;
+  padding: 0;
+}
+
+.menu-card li a {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 11px 0;
+  border-top: 1px solid rgba(26, 18, 12, 0.18);
+  color: inherit;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu-card li span:last-child {
+  color: #9d123c;
+  font-weight: 500;
+}
+
+.menu-open {
+  display: block;
+  margin-top: 16px;
+  text-align: center;
+  color: #9d123c;
+  font-weight: 600;
+}
+
+.contact-legal {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  color: var(--text-faint);
+  font-size: 0.88rem;
+}
+
+.contact-legal a {
+  color: var(--text-soft);
+  margin-left: 12px;
+}
+
+.equipo-dialog {
+  width: min(880px, calc(100% - 32px));
+  max-height: min(86svh, 760px);
+  margin: auto;
+  padding: 28px;
+  overflow: auto;
+  border: 0;
+  border-radius: 28px;
+  background: #0c0c0c;
+  color: var(--text);
+}
+
+.equipo-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.62);
+}
+
+.equipo-dialog-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.equipo-close {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.1);
+  color: inherit;
+  cursor: pointer;
+}
+
+.equipo-dialog .areas {
+  margin-top: 18px;
+}
+
+@media (max-width: 1180px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+  }
+
+  .nav-sheet[data-open="true"] {
+    display: block;
+  }
+}
+
+@media (max-width: 720px) {
+  .reel > .band,
+  .reel > .band.hero {
+    padding-top: calc(var(--nav-h) + 8px);
+    padding-bottom: 62px;
+  }
+
+  .reel > #contacto {
+    justify-content: flex-start;
+    padding-bottom: 14px;
+  }
+
+  .reel .contact-form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .reel .input {
+    min-height: 40px;
+    padding: 8px 12px;
+  }
+
+  .reel textarea.input {
+    min-height: 56px;
+  }
+
+  .reel fieldset.form-row,
+  .reel .form-row:has(#cf-line) {
+    grid-column: 1 / -1;
+  }
+
+  .reel .about-statement {
+    font-size: 1.28rem;
+    line-height: 1.2;
+  }
+
+  .reel .about-note {
+    margin-top: 8px;
+    font-size: 0.92rem;
+  }
+
+  .reel .fields {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .reel .field-card {
+    padding: 12px;
+  }
+
+  .reel .field-card h3 {
+    font-size: 1.05rem;
+  }
+
+  .reel .field-card p {
+    margin-top: 6px;
+    font-size: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .reel .title {
+    font-size: 2rem;
+  }
+
+  .showroom img {
+    height: 24vh;
+  }
+
+  .menu-card {
+    padding: 20px 16px 16px;
+  }
+
+  .menu-card li a {
+    padding: 8px 0;
+    font-size: 0.95rem;
   }
 }
