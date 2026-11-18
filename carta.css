@@ -123,6 +123,11 @@ body {
   display: block;
 }
 
+.carta-book.is-spread .carta-page-left,
+.carta-book.is-spread .carta-scene {
+  flex: 1 1 0;
+}
+
 .carta-book.is-spread .carta-page-left {
   align-items: stretch;
   justify-content: flex-start;
@@ -136,37 +141,31 @@ body {
     0 22px 40px rgba(0, 0, 0, 0.35);
 }
 
-.carta-left-sheet .carta-sheet {
-  padding: 28px 22px 16px;
+/* Las dos hojas usan el mismo cuerpo y los platos ocupan la página. */
+.carta-book.is-open .carta-title {
+  font-size: clamp(2rem, 2.8vw, 2.7rem);
+  line-height: 0.95;
 }
 
-.carta-left-sheet .carta-title {
-  font-size: clamp(2rem, 3vw, 2.7rem);
+.carta-book.is-open .carta-dishes,
+.carta-book.is-open .carta-orders {
+  flex: 1;
+  align-content: space-evenly;
 }
 
-.carta-left-sheet .carta-dish-name {
-  flex: 1 0 100%;
+.carta-book.is-open .carta-foot {
+  margin-top: 0;
+}
+
+.carta-book.is-open .carta-dish-name {
   min-width: auto;
-  font-size: 1.55rem;
-  line-height: 1.15;
+  font-size: clamp(1.55rem, 2vw, 1.9rem);
+  line-height: 1.05;
+  overflow-wrap: normal;
 }
 
-.carta-left-sheet .carta-dish-line {
+.carta-book.is-open .carta-dish-line {
   flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 0;
-}
-
-.carta-left-sheet .carta-dish-price {
-  margin-left: auto;
-}
-
-.carta-left-sheet .carta-leaders {
-  display: none;
-}
-
-.carta-left-sheet .carta-dish-desc {
-  font-size: 0.86rem;
 }
 
 .carta-left-sheet .carta-dish,

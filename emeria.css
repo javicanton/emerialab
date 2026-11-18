@@ -2262,37 +2262,12 @@ body:has(#reel) {
   padding: 28px 36px 18px;
 }
 
-.reel #carta .carta-title {
-  font-size: clamp(2.6rem, 5vw, 3.6rem);
+.reel #carta .carta-book.is-open .carta-title {
+  font-size: clamp(1.8rem, 2.4vw, 2.4rem);
 }
 
-.reel #carta .carta-left-sheet .carta-title {
-  font-size: 1.85rem;
-}
-
-.reel #carta .carta-left-sheet .carta-ornament {
-  width: 70%;
-  margin: 6px auto 8px;
-}
-
-.reel #carta .carta-left-sheet .carta-dish {
-  padding: 2px 0;
-}
-
-.reel #carta .carta-left-sheet .carta-dish-desc {
-  font-size: 0.78rem;
-  line-height: 1.25;
-}
-
-.reel #carta .carta-left-sheet .carta-sheet {
-  padding: 16px 18px 10px;
-}
-
-.reel #carta .carta-left-sheet .carta-dish-name {
-  flex: 1 0 100%;
-  font-size: 1.35rem;
-  line-height: 1.15;
-  min-width: auto;
+.reel #carta .carta-book.is-spread .carta-page-left {
+  flex: 1 1 0;
 }
 
 @media (max-width: 720px) {
