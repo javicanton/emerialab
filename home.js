@@ -478,9 +478,9 @@
   /* ─── Showroom ──────────────────────────────────────────────────── */
 
   const SHOWCASE = [
-    { id: "san-millan", label: "Cómo encontrar un tesoro" },
-    { id: "negocio-del-odio", label: "El negocio del odio" },
-    { id: "steamgraph-cv", label: "Steamgraph" }
+    { id: "san-millan", label: "Documentales científicos" },
+    { id: "negocio-del-odio", label: "Eventos multimedia" },
+    { id: "steamgraph-cv", label: "Visualizaciones de datos" }
   ];
 
   function renderShowcase() {

@@ -132,19 +132,24 @@
       .slice(0, 3);
   }
 
-  function dishButton(page, option) {
+  function dishButton(page, option, frozen) {
     const pressed = state.answers[page.id] === option.id;
     const price = option.price
       ? `<span class="carta-leaders" aria-hidden="true"></span><span class="carta-dish-price">${escapeHtml(option.price)}</span>`
       : "";
+    const chosen = pressed ? " is-chosen" : "";
+    const open = frozen
+      ? `<div class="carta-dish${chosen}">`
+      : `<button type="button" class="carta-dish${chosen}" data-choice="${escapeHtml(option.id)}" aria-pressed="${pressed}">`;
+    const close = frozen ? "</div>" : "</button>";
     return `
-      <button type="button" class="carta-dish" data-choice="${escapeHtml(option.id)}" aria-pressed="${pressed}">
+      ${open}
         <span class="carta-dish-line">
           <span class="carta-dish-name">${escapeHtml(option.name)}</span>
           ${price}
         </span>
         ${option.desc ? `<span class="carta-dish-desc">${escapeHtml(option.desc)}</span>` : ""}
-      </button>
+      ${close}
     `;
   }
 
@@ -183,16 +188,16 @@
     `;
   }
 
-  function pageHtml(index) {
+  function pageHtml(index, frozen) {
     const page = PAGES[index];
-    const back = index > 0
+    const back = !frozen && index > 0
       ? `<button type="button" class="carta-back" data-back>Página anterior</button>`
       : `<span></span>`;
     const body = page.house
       ? houseBlock()
       : page.result
         ? resultBlock()
-        : `<ul class="carta-dishes">${page.options.map((option) => `<li>${dishButton(page, option)}</li>`).join("")}</ul>`;
+        : `<ul class="carta-dishes">${page.options.map((option) => `<li>${dishButton(page, option, frozen)}</li>`).join("")}</ul>`;
     return `
       <div class="carta-sheet">
         <p class="carta-house">Emeria <b>LAB</b></p>
@@ -219,12 +224,23 @@
     if (book) book.classList.toggle("is-open", open);
   }
 
+  /* En la primera hoja abierta la izquierda es el logo. Al pasar de página,
+     la hoja que se acaba de dejar se queda a la izquierda. */
+  function paintLeft(index) {
+    const slot = document.getElementById("cartaLeftSheet");
+    const spread = index > 1;
+    if (book) book.classList.toggle("is-spread", spread);
+    if (!slot) return;
+    slot.innerHTML = spread ? pageHtml(index - 1, true) : "";
+  }
+
   function paint() {
     const html = pageHtml(state.index);
     front.innerHTML = html;
     under.innerHTML = html;
     if (back) back.innerHTML = paperHtml();
     setOpen(state.index > 0);
+    paintLeft(state.index);
     leaf.style.transform = "";
   }
 
@@ -262,6 +278,7 @@
     leaf.getAnimations().forEach((animation) => animation.cancel());
     leaf.style.transform = "rotateY(0deg)";
     setOpen(nextIndex > 0);
+    paintLeft(nextIndex);
   }
 
   async function turn(nextIndex) {
