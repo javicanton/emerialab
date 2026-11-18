@@ -2070,3 +2070,48 @@ body {
     font-size: 0.95rem;
   }
 }
+
+/* Texto de cada pantalla al centro, y las tres formas también. */
+.reel .band-head,
+.reel .about-statement,
+.reel .about-note,
+.reel .field-card,
+.reel .services-more,
+.reel #contacto .title,
+.reel #contacto .lead,
+.reel .contact-legal {
+  text-align: center;
+}
+
+.reel .band-head,
+.reel .about-note,
+.reel #contacto .lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reel .mode {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.reel .filters {
+  justify-content: center;
+}
+
+.reel > #showroom {
+  justify-content: flex-start;
+}
+
+.reel #showroom .band-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.reel .showroom-scroll {
+  min-height: 0;
+  flex: 1;
+  overflow: auto;
+}

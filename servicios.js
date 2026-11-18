@@ -18,8 +18,11 @@
     resultsInfo: document.getElementById("servicesResultsInfo")
   };
 
+  const requestedService = decodeURIComponent(location.hash.replace(/^#/, ""));
   const servicesState = {
-    selectedId: data.lines[0].services[0]
+    selectedId: data.services.some((service) => service.id === requestedService)
+      ? requestedService
+      : data.lines[0].services[0]
   };
 
   function renderServicesSummary() {
@@ -482,4 +485,7 @@
   renderServicesCards();
   renderServicesDetail();
   renderQuestionnaire();
+  if (servicesState.selectedId === requestedService && serviceElements.detailPanel) {
+    serviceElements.detailPanel.scrollIntoView({ behavior: "auto", block: "start" });
+  }
 })();

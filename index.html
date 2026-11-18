@@ -13,7 +13,7 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="emeria.css?v=20261118a">
+  <link rel="stylesheet" href="emeria.css?v=20261118c">
 </head>
 <body>
   <a class="skip-link" href="#que-hacemos">Ir al contenido</a>
@@ -45,7 +45,7 @@
         <a href="#como">Cómo trabajamos</a>
         <a href="#servicios">Servicios</a>
         <a href="#showroom">Showroom</a>
-        <a href="#carta">La carta</a>
+        <a href="carta.html">La carta</a>
         <a href="#equipo">Equipo</a>
       </div>
       <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navSheet">Menú</button>
@@ -56,7 +56,7 @@
       <a href="#como">Cómo trabajamos</a>
       <a href="#servicios">Servicios</a>
       <a href="#showroom">Showroom</a>
-      <a href="#carta">La carta</a>
+      <a href="carta.html">La carta</a>
       <a href="#equipo">Equipo</a>
       <a href="#contacto">Hablemos</a>
     </div>
@@ -137,43 +137,17 @@
         <header class="band-head">
           <h2 class="title" id="showroom-title">Showroom</h2>
         </header>
-        <ul class="showroom">
-          <li>
-            <a href="https://javicanton.github.io/steamgraph-cv/" target="_blank" rel="noopener">
-              <img src="assets/works/steamgraph-cv.jpg" alt="Steamgraph de un CV académico, de 2006 a hoy" width="1268" height="614">
-              <p>Steamgraph</p>
-            </a>
-          </li>
-          <li>
-            <a href="https://www.unir.tv/content/patrimonio-y-cultura/como-encontrar-un-tesoro-patrimonio-de-san-millan-de-la-cogolla" target="_blank" rel="noopener">
-              <img src="assets/works/como-encontrar-un-tesoro.jpg" alt="Documental Cómo encontrar un tesoro, sobre el patrimonio de San Millán de la Cogolla" width="1198" height="673">
-              <p>Cómo encontrar un tesoro</p>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- 6. La carta -->
-    <section class="band" id="carta" aria-labelledby="carta-title">
-      <div class="band-inner menu-screen">
-        <h2 class="sr-only" id="carta-title">La carta</h2>
-        <div class="menu-card">
-          <p class="menu-house">Emeria <b>LAB</b></p>
-          <p class="menu-question">¿Qué te apetece <b>comer?</b></p>
-          <ul>
-            <li><a href="servicios.html#carta"><span>Picoteo</span><span>desde 60 €</span></a></li>
-            <li><a href="servicios.html#carta"><span>Plato único</span><span>desde 75 €</span></a></li>
-            <li><a href="servicios.html#carta"><span>Menú Experiencia</span><span>desde 800 €</span></a></li>
-            <li><a href="servicios.html#carta"><span>Menú degustación</span><span>A medida</span></a></li>
-            <li><a href="servicios.html#carta"><span>La elección del chef</span><span>150 €</span></a></li>
-          </ul>
-          <a class="menu-open" href="servicios.html#carta">Abrir la carta</a>
+        <div class="showroom-scroll">
+          <div class="filters" id="workFilters" role="group" aria-label="Filtrar trabajos por línea de servicio"></div>
+          <ul class="works" id="works" aria-live="polite"></ul>
+          <p class="works-more" id="worksMoreWrap" hidden>
+            <button class="btn btn-glass" id="worksMore" type="button">Ver más trabajos</button>
+          </p>
         </div>
       </div>
     </section>
 
-    <!-- 7. Contacto -->
+    <!-- 6. Contacto -->
     <section class="band" id="contacto" aria-labelledby="contacto-title">
       <div class="band-inner contact-grid">
         <div>
@@ -242,6 +216,6 @@
   </dialog>
 
   <script src="data.js?v=20261118b"></script>
-  <script src="home.js?v=20261118a"></script>
+  <script src="home.js?v=20261118c"></script>
 </body>
 </html>

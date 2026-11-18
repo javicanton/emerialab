@@ -6,9 +6,10 @@
   const front = document.getElementById("cartaFront");
   const under = document.getElementById("cartaUnder");
   const leaf = document.getElementById("cartaLeaf");
+  const back = document.getElementById("cartaBack");
   const left = document.getElementById("cartaLeft");
   const live = document.getElementById("cartaLive");
-  if (!scene || !front || !under || !leaf || !left || !data) return;
+  if (!scene || !front || !under || !leaf || !data) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -157,7 +158,7 @@
           <span class="carta-leaders" aria-hidden="true"></span>
           <span class="carta-dish-price">hoy</span>
         </span>
-        <span class="carta-dish-desc">Cuatro páginas. Eliges un plato y la carta sigue abierta.</span>
+        <span class="carta-dish-desc">Cuatro páginas. Eliges un plato y la hoja pasa.</span>
       </button>
     `;
   }
@@ -204,7 +205,7 @@
           <span class="carta-dish-price">${escapeHtml(service.priceFrom)}</span>
         </span>
         <span class="carta-dish-desc">${escapeHtml(service.subtitle)}</span>
-        <button type="button" class="carta-ficha" data-ficha="${escapeHtml(service.id)}">Ver la ficha</button>
+        <a class="carta-ficha" href="servicios.html#${escapeHtml(service.id)}">Ver la ficha</a>
       </li>
     `).join("");
     return `
@@ -238,14 +239,23 @@
     `;
   }
 
+  function paperHtml() {
+    return `
+      <div class="carta-sheet carta-reverse">
+        <p class="carta-house">Emeria <b>LAB</b></p>
+      </div>
+    `;
+  }
+
   function paintLeft() {
-    left.innerHTML = leftHtml();
+    if (left) left.innerHTML = leftHtml();
   }
 
   function paint() {
     const html = pageHtml(state.index);
     front.innerHTML = html;
     under.innerHTML = html;
+    if (back) back.innerHTML = paperHtml();
     paintLeft();
     leaf.style.transform = "";
   }
@@ -260,9 +270,34 @@
     if (title) title.focus({ preventScroll: true });
   }
 
+  /* La hoja gira del todo alrededor del lomo. El tramo central va más lento
+     para que se vea el canto antes de descubrir la página de debajo. */
+  const TURN_MS = 1500;
+  const turnForward = [
+    { transform: "rotateY(0deg)", offset: 0 },
+    { transform: "rotateY(-70deg)", offset: 0.34 },
+    { transform: "rotateY(-110deg)", offset: 0.66 },
+    { transform: "rotateY(-180deg)", offset: 1 }
+  ];
+  const turnBack = [
+    { transform: "rotateY(-180deg)", offset: 0 },
+    { transform: "rotateY(-110deg)", offset: 0.34 },
+    { transform: "rotateY(-70deg)", offset: 0.66 },
+    { transform: "rotateY(0deg)", offset: 1 }
+  ];
+
+  function settle(nextIndex) {
+    state.index = nextIndex;
+    const html = pageHtml(state.index);
+    front.innerHTML = html;
+    under.innerHTML = html;
+    leaf.getAnimations().forEach((animation) => animation.cancel());
+    leaf.style.transform = "rotateY(0deg)";
+  }
+
   async function turn(nextIndex) {
     if (state.busy || nextIndex < 0 || nextIndex >= PAGES.length || nextIndex === state.index) return;
-    if (reduceMotion) {
+    if (reduceMotion || !back) {
       state.index = nextIndex;
       paint();
       announce();
@@ -271,26 +306,24 @@
 
     state.busy = true;
     scene.classList.add("is-turning");
+    const forward = nextIndex > state.index;
     try {
       paintLeft();
-      under.innerHTML = pageHtml(nextIndex);
-      const lift = leaf.animate(
-        [{ transform: "rotateY(0deg)" }, { transform: "rotateY(-58deg)" }],
-        { duration: 460, easing: "cubic-bezier(.33, .02, .2, 1)", fill: "forwards" }
-      );
-      await lift.finished;
-      state.index = nextIndex;
-      front.innerHTML = pageHtml(state.index);
-      const settle = leaf.animate(
-        [{ transform: "rotateY(-58deg)" }, { transform: "rotateY(0deg)" }],
-        { duration: 420, easing: "cubic-bezier(.2, .7, .2, 1)", fill: "forwards" }
-      );
-      await settle.finished;
-      under.innerHTML = pageHtml(state.index);
-      leaf.style.transform = "rotateY(0deg)";
-      lift.cancel();
-      settle.cancel();
-      leaf.style.transform = "";
+      back.innerHTML = paperHtml();
+      if (forward) {
+        under.innerHTML = pageHtml(nextIndex);
+        const flip = leaf.animate(turnForward, { duration: TURN_MS, easing: "linear", fill: "forwards" });
+        await flip.finished;
+        settle(nextIndex);
+      } else {
+        front.innerHTML = pageHtml(nextIndex);
+        under.innerHTML = pageHtml(state.index);
+        leaf.style.transform = "rotateY(-180deg)";
+        void leaf.offsetWidth;
+        const flip = leaf.animate(turnBack, { duration: TURN_MS, easing: "linear", fill: "forwards" });
+        await flip.finished;
+        settle(nextIndex);
+      }
     } finally {
       scene.classList.remove("is-turning");
       state.busy = false;
@@ -317,12 +350,6 @@
       turn(0);
       return;
     }
-    const ficha = event.target.closest("[data-ficha]");
-    if (!ficha) return;
-    const chip = document.querySelector('.service-summary-chip[data-service-id="' + ficha.dataset.ficha + '"]');
-    const detail = document.getElementById("servicesDetailPanel");
-    if (chip) chip.click();
-    else if (detail) detail.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
   });
 
   paint();

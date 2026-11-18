@@ -170,7 +170,7 @@
       if (equipo && equipo.open) return;
       const target = event.target && event.target.closest ? event.target : document.body;
       if (target.closest("input, textarea, select, dialog")) return;
-      const inner = target.closest(".line-panel");
+      const inner = target.closest(".line-panel, .showroom-scroll");
       if (inner && inner.scrollHeight > inner.clientHeight + 8) {
         const atTop = inner.scrollTop <= 0 && event.deltaY < 0;
         const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 2 && event.deltaY > 0;
@@ -194,6 +194,12 @@
       const dx = event.changedTouches[0].clientX - touchX;
       const dy = event.changedTouches[0].clientY - touchY;
       if (Math.abs(dy) < 48 || Math.abs(dy) < Math.abs(dx)) return;
+      const inner = event.target.closest(".line-panel, .showroom-scroll");
+      if (inner && inner.scrollHeight > inner.clientHeight + 8) {
+        const atTop = inner.scrollTop <= 0 && dy > 0;
+        const atBottom = inner.scrollTop + inner.clientHeight >= inner.scrollHeight - 2 && dy < 0;
+        if (!atTop && !atBottom) return;
+      }
       go(indexNow() + (dy < 0 ? 1 : -1));
     }, { passive: true });
 
@@ -282,7 +288,11 @@
     const reel = $("reel");
     const links = Array.from(document.querySelectorAll("#navLinks a"));
     const targets = links
-      .map((link) => document.querySelector(link.getAttribute("href")))
+      .map((link) => {
+        const href = link.getAttribute("href") || "";
+        if (!href.startsWith("#")) return null;
+        return document.querySelector(href);
+      })
       .filter((target) => target && reel && reel.contains(target));
 
     if (!("IntersectionObserver" in window) || !reel) return;
@@ -684,6 +694,9 @@
   renderLinePanel();
   bindServices();
   renderModes();
+  renderWorkFilters();
+  renderWorks();
+  bindWorks();
   renderTeam();
   renderContactOptions();
   bindContact();
