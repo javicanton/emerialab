@@ -4,35 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#14080c">
-  <meta name="description" content="La carta de Emeria LAB. Eliges qué te apetece y la hoja pasa hasta tu comanda.">
+  <meta name="description" content="La carta de Emeria LAB. Eliges qué te apetece y sale la siguiente tarjeta hasta tu comanda.">
   <title>La carta | Emeria LAB</title>
   <link rel="icon" href="favicon.svg">
-  <link rel="stylesheet" href="carta.css?v=20261118i">
+  <link rel="stylesheet" href="carta.css?v=20261118k">
 </head>
 <body>
   <a class="carta-exit" href="index.html">Inicio</a>
 
   <main class="carta-stage">
-    <div class="carta-book" id="cartaBook">
-      <div class="carta-page-left" id="cartaLeft">
-        <div class="carta-logo">
-          <img src="assets/brand/emeria-lab-logo-transparente.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
-        </div>
-        <div class="carta-left-sheet" id="cartaLeftSheet"></div>
-      </div>
-      <div class="carta-scene" id="cartaScene">
-        <div class="carta-under" id="cartaUnder"></div>
-        <div class="carta-leaf" id="cartaLeaf">
-          <div class="carta-face carta-face-front" id="cartaFront"></div>
-          <div class="carta-face carta-face-back" id="cartaBack" aria-hidden="true"></div>
-        </div>
-      </div>
+    <div class="carta-deck" id="cartaDeck">
+      <div class="carta-pile" aria-hidden="true"></div>
+      <div class="carta-pile" aria-hidden="true"></div>
+      <div class="carta-card" id="cartaCard"></div>
     </div>
   </main>
 
   <p class="carta-live" id="cartaLive" aria-live="polite"></p>
 
   <script src="data.js?v=20261118j"></script>
-  <script src="carta.js?v=20261118i"></script>
+  <script src="carta.js?v=20261118k"></script>
 </body>
 </html>

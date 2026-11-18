@@ -1,5 +1,5 @@
 /* La carta, a pantalla completa. Títulos en italiana manuscrita,
-   cuerpo en una romana con serifas. La hoja gira sobre el lomo. */
+   cuerpo en una romana con serifas. Cada elección saca la siguiente tarjeta. */
 
 @font-face {
   font-family: "Italianno";
@@ -69,6 +69,92 @@ body {
   justify-content: center;
   height: 100svh;
   padding: 54px 4vw 28px;
+}
+
+/* Una baraja: la tarjeta de encima y dos cartas asomando detrás. */
+.carta-deck {
+  position: relative;
+  width: min(520px, 100%);
+  height: 100%;
+  margin-inline: auto;
+}
+
+.carta-pile,
+.carta-card {
+  border-radius: 18px;
+  background:
+    radial-gradient(120% 70% at 50% 0%, rgba(255, 252, 245, 0.75), transparent 46%),
+    linear-gradient(180deg, #f8f3ea 0%, #f1e6d4 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(26, 18, 12, 0.08),
+    0 18px 36px rgba(0, 0, 0, 0.32);
+}
+
+.carta-pile {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.carta-pile:nth-child(1) {
+  transform: translate(14px, 18px) rotate(2.4deg);
+}
+
+.carta-pile:nth-child(2) {
+  transform: translate(7px, 9px) rotate(1.1deg);
+}
+
+.carta-deck[data-left="0"] .carta-pile,
+.carta-deck[data-left="1"] .carta-pile:nth-child(1) {
+  opacity: 0;
+}
+
+.carta-card {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  overflow: auto;
+  color: #1a120c;
+}
+
+.carta-card.is-deal {
+  animation: carta-deal 620ms cubic-bezier(0.16, 0.84, 0.32, 1);
+}
+
+.carta-card.is-sink {
+  animation: carta-sink 520ms cubic-bezier(0.16, 0.84, 0.32, 1);
+}
+
+@keyframes carta-deal {
+  from { transform: translate(12px, 34px) rotate(2.6deg) scale(0.95); }
+  to { transform: none; }
+}
+
+@keyframes carta-sink {
+  from { transform: translate(-6px, -22px) scale(1.03); opacity: 0.7; }
+  to { transform: none; opacity: 1; }
+}
+
+.carta-card .carta-dishes,
+.carta-card .carta-orders {
+  flex: 1;
+  align-content: space-evenly;
+}
+
+.carta-card .carta-foot {
+  margin-top: 0;
+}
+
+.carta-card .carta-title {
+  font-size: clamp(2rem, 2.8vw, 2.7rem);
+  line-height: 0.95;
+}
+
+.carta-card .carta-dish-name {
+  min-width: auto;
+  font-size: clamp(1.45rem, 2vw, 1.75rem);
+  line-height: 1.05;
+  overflow-wrap: normal;
 }
 
 /* Cerrada, una hoja centrada. Al abrir, el libro crece hacia los dos lados
@@ -580,9 +666,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .carta-leaf,
-  .carta-book,
-  .carta-page-left {
-    transition: none;
+  .carta-card.is-deal,
+  .carta-card.is-sink {
+    animation: none;
   }
 }

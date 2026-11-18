@@ -13,8 +13,8 @@
   <link rel="preload" href="assets/fonts/barlow-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/fonts/barlow.css">
-  <link rel="stylesheet" href="carta.css?v=20261118i">
-  <link rel="stylesheet" href="emeria.css?v=20261118j">
+  <link rel="stylesheet" href="carta.css?v=20261118k">
+  <link rel="stylesheet" href="emeria.css?v=20261118k">
 </head>
 <body>
   <a class="skip-link" href="#que-hacemos">Ir al contenido</a>
@@ -165,20 +165,10 @@
     <section class="band" id="carta" aria-labelledby="carta-title">
       <h2 class="sr-only" id="carta-title">La carta</h2>
       <div class="carta-stage">
-        <div class="carta-book" id="cartaBook">
-          <div class="carta-page-left" id="cartaLeft">
-            <div class="carta-logo">
-              <img src="assets/brand/emeria-lab-logo-transparente.svg" width="612" height="284" alt="Emeria LAB. Transformamos conocimiento en impacto">
-            </div>
-            <div class="carta-left-sheet" id="cartaLeftSheet"></div>
-          </div>
-          <div class="carta-scene" id="cartaScene">
-            <div class="carta-under" id="cartaUnder"></div>
-            <div class="carta-leaf" id="cartaLeaf">
-              <div class="carta-face carta-face-front" id="cartaFront"></div>
-              <div class="carta-face carta-face-back" id="cartaBack" aria-hidden="true"></div>
-            </div>
-          </div>
+        <div class="carta-deck" id="cartaDeck">
+          <div class="carta-pile" aria-hidden="true"></div>
+          <div class="carta-pile" aria-hidden="true"></div>
+          <div class="carta-card" id="cartaCard"></div>
         </div>
       </div>
       <p class="carta-live" id="cartaLive" aria-live="polite"></p>
@@ -254,6 +244,6 @@
 
   <script src="data.js?v=20261118j"></script>
   <script src="home.js?v=20261118h"></script>
-  <script src="carta.js?v=20261118i"></script>
+  <script src="carta.js?v=20261118k"></script>
 </body>
 </html>

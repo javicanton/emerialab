@@ -2,14 +2,10 @@
   "use strict";
 
   const data = window.EMERIA_DATA;
-  const scene = document.getElementById("cartaScene");
-  const front = document.getElementById("cartaFront");
-  const under = document.getElementById("cartaUnder");
-  const leaf = document.getElementById("cartaLeaf");
-  const back = document.getElementById("cartaBack");
-  const book = document.getElementById("cartaBook");
+  const deck = document.getElementById("cartaDeck");
+  const card = document.getElementById("cartaCard");
   const live = document.getElementById("cartaLive");
-  if (!scene || !front || !under || !leaf || !data) return;
+  if (!deck || !card || !data) return;
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -163,7 +159,7 @@
           <span class="carta-leaders" aria-hidden="true"></span>
           <span class="carta-dish-price">hoy</span>
         </span>
-        <span class="carta-dish-desc">Cuatro páginas. Eliges un plato y la hoja pasa.</span>
+        <span class="carta-dish-desc">Cinco cartas. Eliges un plato y sale la siguiente.</span>
       </button>
     `;
   }
@@ -191,7 +187,7 @@
   function pageHtml(index, frozen) {
     const page = PAGES[index];
     const back = !frozen && index > 0
-      ? `<button type="button" class="carta-back" data-back>Página anterior</button>`
+      ? `<button type="button" class="carta-back" data-back>Carta anterior</button>`
       : `<span></span>`;
     const body = page.house
       ? houseBlock()
@@ -212,116 +208,47 @@
     `;
   }
 
-  function paperHtml() {
-    return `
-      <div class="carta-sheet carta-reverse">
-        <p class="carta-house">Emeria <b>LAB</b></p>
-      </div>
-    `;
-  }
-
-  function setOpen(open) {
-    if (book) book.classList.toggle("is-open", open);
-  }
-
-  /* En la primera hoja abierta la izquierda es el logo. Al pasar de página,
-     la hoja que se acaba de dejar se queda a la izquierda. */
-  function paintLeft(index) {
-    const slot = document.getElementById("cartaLeftSheet");
-    const spread = index > 1;
-    if (book) book.classList.toggle("is-spread", spread);
-    if (!slot) return;
-    slot.innerHTML = spread ? pageHtml(index - 1, true) : "";
-  }
-
-  function paint() {
-    const html = pageHtml(state.index);
-    front.innerHTML = html;
-    under.innerHTML = html;
-    if (back) back.innerHTML = paperHtml();
-    setOpen(state.index > 0);
-    paintLeft(state.index);
-    leaf.style.transform = "";
+  function paint(motion) {
+    card.innerHTML = pageHtml(state.index);
+    deck.dataset.left = String(Math.max(0, PAGES.length - 1 - state.index));
+    card.classList.remove("is-deal", "is-sink");
+    if (!motion || reduceMotion) return;
+    void card.offsetWidth;
+    card.classList.add(motion === "back" ? "is-sink" : "is-deal");
   }
 
   function announce() {
     const page = PAGES[state.index];
     const plain = page.title.replace(/<[^>]+>/g, "");
-    live.textContent = page.folio
-      ? "Página " + page.folio + ". " + plain
-      : plain;
-    const title = front.querySelector(".carta-title");
+    if (live) {
+      live.textContent = page.folio
+        ? "Carta " + page.folio + ". " + plain
+        : plain;
+    }
+    const title = card.querySelector(".carta-title");
     if (title) title.focus({ preventScroll: true });
   }
 
-  /* La hoja gira del todo alrededor del lomo. El tramo central va más lento
-     para que se vea el canto antes de descubrir la página de debajo. */
-  const TURN_MS = 1500;
-  const turnForward = [
-    { transform: "rotateY(0deg)", offset: 0 },
-    { transform: "rotateY(-70deg)", offset: 0.34 },
-    { transform: "rotateY(-110deg)", offset: 0.66 },
-    { transform: "rotateY(-180deg)", offset: 1 }
-  ];
-  const turnBack = [
-    { transform: "rotateY(-180deg)", offset: 0 },
-    { transform: "rotateY(-110deg)", offset: 0.34 },
-    { transform: "rotateY(-70deg)", offset: 0.66 },
-    { transform: "rotateY(0deg)", offset: 1 }
-  ];
-
-  function settle(nextIndex) {
-    state.index = nextIndex;
-    const html = pageHtml(state.index);
-    front.innerHTML = html;
-    under.innerHTML = html;
-    leaf.getAnimations().forEach((animation) => animation.cancel());
-    leaf.style.transform = "rotateY(0deg)";
-    setOpen(nextIndex > 0);
-    paintLeft(nextIndex);
-  }
+  const DEAL_MS = 620;
 
   async function turn(nextIndex) {
     if (state.busy || nextIndex < 0 || nextIndex >= PAGES.length || nextIndex === state.index) return;
-    if (reduceMotion || !back) {
-      state.index = nextIndex;
+    const forward = nextIndex > state.index;
+    state.index = nextIndex;
+    if (reduceMotion) {
       paint();
       announce();
       return;
     }
-
     state.busy = true;
-    scene.classList.add("is-turning");
-    const forward = nextIndex > state.index;
-    const opening = forward && state.index === 0;
-    try {
-      if (opening) {
-        setOpen(true);
-        if (!reduceMotion) await new Promise((resolve) => window.setTimeout(resolve, 560));
-      }
-      back.innerHTML = paperHtml();
-      if (forward) {
-        under.innerHTML = pageHtml(nextIndex);
-        const flip = leaf.animate(turnForward, { duration: TURN_MS, easing: "linear", fill: "forwards" });
-        await flip.finished;
-        settle(nextIndex);
-      } else {
-        front.innerHTML = pageHtml(nextIndex);
-        under.innerHTML = pageHtml(state.index);
-        leaf.style.transform = "rotateY(-180deg)";
-        void leaf.offsetWidth;
-        const flip = leaf.animate(turnBack, { duration: TURN_MS, easing: "linear", fill: "forwards" });
-        await flip.finished;
-        settle(nextIndex);
-      }
-    } finally {
-      scene.classList.remove("is-turning");
-      state.busy = false;
-      announce();
-    }
+    paint(forward ? "deal" : "back");
+    await new Promise((resolve) => window.setTimeout(resolve, DEAL_MS));
+    card.classList.remove("is-deal", "is-sink");
+    state.busy = false;
+    announce();
   }
 
-  scene.addEventListener("click", (event) => {
+  card.addEventListener("click", (event) => {
     const choice = event.target.closest("[data-choice]");
     if (choice && !state.busy) {
       const page = PAGES[state.index];
