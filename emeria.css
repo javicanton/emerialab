@@ -514,22 +514,6 @@ main {
   margin-inline: auto;
 }
 
-.hero-board {
-  display: block;
-  width: min(980px, 94%);
-  height: auto;
-  margin-top: clamp(16px, 3vh, 36px);
-  overflow: visible;
-}
-
-.hero-board .ink {
-  fill: #f3efe6;
-}
-
-.hero-board .ink-arrow {
-  fill: #defa16;
-}
-
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -612,7 +596,7 @@ main {
     animation: mark-in 1.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
   }
 
-  .hero-seq > :not(.hero-mark):not(.hero-board) {
+  .hero-seq > :not(.hero-mark) {
     opacity: 0;
     transform: translateY(18px);
     animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
@@ -621,14 +605,6 @@ main {
   .hero-seq > :nth-child(2) { animation-delay: 0.55s; }
   .hero-seq > :nth-child(3) { animation-delay: 0.7s; }
   .hero-seq > :nth-child(4) { animation-delay: 0.85s; }
-
-  .hero-board .ink {
-    clip-path: inset(0 100% 0 0);
-    animation-name: ink-write;
-    animation-duration: 0.32s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-  }
 
   .hero-lines {
     opacity: 0;
@@ -639,10 +615,6 @@ main {
   .light {
     animation: light-in 1.8s ease-out both;
   }
-}
-
-@keyframes ink-write {
-  to { clip-path: inset(0 0 0 0); }
 }
 
 @keyframes mark-in {
