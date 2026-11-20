@@ -638,26 +638,8 @@
     });
   }
 
-  /* La pizarra escribe ciencia, la flecha e impacto, trazo a trazo. */
-  function writeBoard() {
-    const board = document.querySelector(".hero-board");
-    if (!board || reduceMotion) return;
-    const strokes = board.querySelectorAll(".stroke");
-    let delay = 1.15;
-    strokes.forEach((path) => {
-      const len = path.getTotalLength();
-      if (!len) return;
-      const dur = Math.min(0.62, Math.max(0.14, len / 380));
-      path.style.strokeDasharray = String(len);
-      path.style.strokeDashoffset = String(len);
-      path.style.animation = `chalk-write ${dur}s cubic-bezier(0.33, 0.05, 0.2, 1) ${delay}s forwards`;
-      delay += dur * 0.58 + Number(path.dataset.pause || 0);
-    });
-  }
-
   /* ─── Inicio ────────────────────────────────────────────────────── */
 
-  writeBoard();
   drawLight();
   bindScrollLight();
   bindReel();
