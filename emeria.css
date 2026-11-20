@@ -514,6 +514,40 @@ main {
   margin-inline: auto;
 }
 
+.hero-board {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2%;
+  width: min(1000px, 94%);
+  margin-top: clamp(12px, 2.4vh, 28px);
+}
+
+.hero-board svg {
+  display: block;
+  height: auto;
+  overflow: visible;
+}
+
+.hero-board .board-ciencia { width: 40%; }
+.hero-board .board-arrow { width: 9%; }
+.hero-board .board-impacto { width: 44%; }
+
+.hero-board .stroke {
+  fill: none;
+  stroke: #f4f0e6;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url("#chalkDust");
+}
+
+.hero-board .chalk-arrow {
+  stroke: #defa16;
+  stroke-width: 10;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -596,7 +630,7 @@ main {
     animation: mark-in 1.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
   }
 
-  .hero-seq > :not(.hero-mark) {
+  .hero-seq > :not(.hero-mark):not(.hero-board) {
     opacity: 0;
     transform: translateY(18px);
     animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
@@ -615,6 +649,10 @@ main {
   .light {
     animation: light-in 1.8s ease-out both;
   }
+}
+
+@keyframes chalk-write {
+  to { stroke-dashoffset: 0; }
 }
 
 @keyframes mark-in {
@@ -2013,6 +2051,22 @@ body:has(#reel) {
 }
 
 @media (max-width: 720px) {
+  .hero-board {
+    flex-wrap: wrap;
+    width: min(420px, 92%);
+    gap: 0;
+  }
+
+  .hero-board .board-ciencia,
+  .hero-board .board-impacto {
+    width: 100%;
+  }
+
+  .hero-board .board-arrow {
+    width: 26%;
+    margin: 2px 0;
+  }
+
   .reel > .band,
   .reel > .band.hero {
     padding-top: calc(var(--nav-h) + 8px);
