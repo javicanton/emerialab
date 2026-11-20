@@ -149,18 +149,14 @@
     `;
   }
 
-  function houseBlock() {
+  function coverHtml() {
     return `
-      <p class="carta-lead">${escapeHtml(PAGES[0].lead)}</p>
-      <p class="carta-prose">En esta casa el conocimiento entra por la cocina y sale en un formato que se puede servir: una pieza, un relato o la comunicación de un proyecto.</p>
-      <button type="button" class="carta-dish carta-open" data-choice="abrir">
-        <span class="carta-dish-line">
-          <span class="carta-dish-name">Abrir la carta</span>
-          <span class="carta-leaders" aria-hidden="true"></span>
-          <span class="carta-dish-price">hoy</span>
-        </span>
-        <span class="carta-dish-desc">Cinco cartas. Eliges un plato y sale la siguiente.</span>
-      </button>
+      <div class="carta-sheet carta-cover">
+        <div class="carta-mark">
+          <img src="assets/brand/emeria-lab-logo-positivo.svg" alt="Emeria LAB">
+        </div>
+        <button type="button" class="carta-invite" data-choice="abrir">¿Qué te apetece hoy?</button>
+      </div>
     `;
   }
 
@@ -189,11 +185,10 @@
     const back = !frozen && index > 0
       ? `<button type="button" class="carta-back" data-back>Carta anterior</button>`
       : `<span></span>`;
-    const body = page.house
-      ? houseBlock()
-      : page.result
-        ? resultBlock()
-        : `<ul class="carta-dishes">${page.options.map((option) => `<li>${dishButton(page, option, frozen)}</li>`).join("")}</ul>`;
+    if (page.house) return coverHtml();
+    const body = page.result
+      ? resultBlock()
+      : `<ul class="carta-dishes">${page.options.map((option) => `<li>${dishButton(page, option, frozen)}</li>`).join("")}</ul>`;
     return `
       <div class="carta-sheet">
         <p class="carta-house">Emeria <b>LAB</b></p>

@@ -2260,11 +2260,16 @@ body:has(#reel) {
 }
 
 .reel #carta .carta-sheet {
-  padding: 18px 28px 12px;
+  padding: 22px 32px 16px;
 }
 
 .reel #carta .carta-card .carta-title {
   font-size: clamp(1.7rem, 2.2vw, 2.15rem);
+}
+
+.reel #carta .carta-dishes,
+.reel #carta .carta-orders {
+  gap: clamp(12px, 1.8vh, 22px);
 }
 
 .reel #carta .carta-ornament {
@@ -2272,12 +2277,13 @@ body:has(#reel) {
 }
 
 .reel #carta .carta-dish {
-  padding: 3px 2px;
+  padding: 6px 2px;
 }
 
 .reel #carta .carta-dish-desc {
-  font-size: 0.8rem;
-  line-height: 1.3;
+  margin-top: 6px;
+  font-size: 0.84rem;
+  line-height: 1.4;
 }
 
 @media (max-width: 720px) {

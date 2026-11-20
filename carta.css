@@ -139,6 +139,50 @@ body {
 .carta-card .carta-orders {
   flex: 1;
   align-content: space-evenly;
+  gap: clamp(16px, 2.6vh, 32px);
+}
+
+.carta-cover {
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.carta-mark {
+  width: min(250px, 74%);
+  margin: 22px auto 0;
+  aspect-ratio: 612 / 108;
+  overflow: hidden;
+}
+
+.carta-mark img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -12.2%;
+}
+
+.carta-invite {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0 18px 6%;
+  border: 0;
+  background: transparent;
+  color: #1a120c;
+  cursor: pointer;
+  font-family: "Italianno", "Palatino Linotype", Palatino, serif;
+  font-size: clamp(2.6rem, 6vw, 3.6rem);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 0.95;
+  text-align: center;
+}
+
+.carta-invite:hover {
+  color: #9d123c;
 }
 
 .carta-card .carta-foot {
@@ -480,7 +524,7 @@ body {
 .carta-dishes,
 .carta-orders {
   display: grid;
-  gap: 2px;
+  gap: clamp(16px, 2.6vh, 32px);
 }
 
 .carta-orders {
