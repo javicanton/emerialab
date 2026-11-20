@@ -1,14 +1,14 @@
 /* ─────────────────────────────────────────────────────────────────────
    Emeria LAB · portada
-   Tokens del manual de identidad: negro, lima y magenta; tipografía Barlow.
+   Negro de fondo, fucsia y verde azulado de la paleta UNIR. Tipografía Barlow.
    ───────────────────────────────────────────────────────────────────── */
 
 :root {
   --black: #000000;
-  --lime: #defa16;
-  --lime-deep: #9aa217;
-  --magenta: #f50152;
-  --magenta-deep: #a3003a;
+  --lime: #51ecd4;
+  --lime-deep: #00837f;
+  --magenta: #e44cc2;
+  --magenta-deep: #b74287;
 
   --text: rgba(255, 255, 255, 0.94);
   --text-soft: rgba(255, 255, 255, 0.7);
@@ -1362,7 +1362,7 @@ textarea.input {
 select.input {
   appearance: none;
   padding-right: 42px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%23defa16' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='9' viewBox='0 0 14 9'%3E%3Cpath d='M1 1l6 6 6-6' fill='none' stroke='%2351ecd4' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
 }
@@ -1854,6 +1854,27 @@ body:has(#reel) {
   display: none;
 }
 
+.unir-credit {
+  position: fixed;
+  left: 22px;
+  bottom: 16px;
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.84rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+.unir-credit img {
+  width: auto;
+  height: 52px;
+}
+
 .showroom {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -2013,6 +2034,18 @@ body:has(#reel) {
 }
 
 @media (max-width: 720px) {
+  .unir-credit {
+    left: 12px;
+    bottom: 14px;
+    gap: 7px;
+    max-width: calc(50% - 36px);
+    font-size: 0.72rem;
+  }
+
+  .unir-credit img {
+    height: 34px;
+  }
+
   .reel > .band,
   .reel > .band.hero {
     padding-top: calc(var(--nav-h) + 8px);

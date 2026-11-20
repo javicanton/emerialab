@@ -6,8 +6,8 @@
   --muted: #b4b4ae;
   --panel: #141414;
   --line: #2e2e2e;
-  --accent: #f50152;
-  --accent-2: #defa16;
+  --accent: #e44cc2;
+  --accent-2: #51ecd4;
   --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -40,7 +40,7 @@ body {
 .ambient-one {
   width: 420px;
   height: 420px;
-  background: #f50152;
+  background: #e44cc2;
   top: -110px;
   right: -130px;
 }
@@ -48,7 +48,7 @@ body {
 .ambient-two {
   width: 460px;
   height: 460px;
-  background: #defa16;
+  background: #51ecd4;
   bottom: -170px;
   left: -120px;
 }
@@ -367,7 +367,7 @@ select {
   gap: 6px;
   padding: 3px 9px;
   background: rgba(222, 250, 22, 0.12);
-  color: #defa16;
+  color: #51ecd4;
   border-radius: 999px;
   font-size: 0.76rem;
   font-weight: 700;
@@ -448,7 +448,7 @@ select {
   padding: 3px 8px;
   border-radius: 999px;
   border: 1px solid var(--line);
-  color: #defa16;
+  color: #51ecd4;
   background: rgba(222, 250, 22, 0.08);
   font-size: 0.78rem;
 }
@@ -468,7 +468,7 @@ select {
 }
 
 .service-example {
-  color: #defa16;
+  color: #51ecd4;
   font-weight: 600;
 }
 
@@ -567,7 +567,7 @@ select {
   border-radius: 999px;
   padding: 5px 10px;
   font-size: 0.82rem;
-  color: #defa16;
+  color: #51ecd4;
 }
 
 .format-link-chip:hover {
@@ -590,7 +590,7 @@ td {
 }
 
 th {
-  color: #defa16;
+  color: #51ecd4;
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -697,11 +697,11 @@ th {
 }
 
 .bar-cost {
-  background: linear-gradient(120deg, #f50152, #a3003a);
+  background: linear-gradient(120deg, #e44cc2, #b74287);
 }
 
 .bar-time {
-  background: linear-gradient(120deg, #defa16, #9aa217);
+  background: linear-gradient(120deg, #51ecd4, #00837f);
 }
 
 .bar-legend {
@@ -883,7 +883,7 @@ th {
 .pill-viability {
   background: rgba(222, 250, 22, 0.08);
   border-color: rgba(222, 250, 22, 0.2);
-  color: #defa16;
+  color: #51ecd4;
 }
 
 .service-detail-num {
@@ -906,7 +906,7 @@ th {
   display: inline-block;
   padding: 3px 9px;
   background: rgba(222, 250, 22, 0.1);
-  color: #defa16;
+  color: #51ecd4;
   border: 1px solid rgba(222, 250, 22, 0.2);
   border-radius: 999px;
   font-size: 0.76rem;
